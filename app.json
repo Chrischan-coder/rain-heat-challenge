@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "日常碳迹",
+    "navigationBarBackgroundColor": "#f3f5ef",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3f5ef",
+    "enablePullDownRefresh": false
+  },
+  "style": "v2"
+}
+
