@@ -4,7 +4,7 @@
 
 ## 在线体验
 
-GitHub Pages 发布地址：<https://chrischan-coder.github.io/carbon-footprint/>
+GitHub Pages：<https://chrischan-coder.github.io/rain-heat-challenge/>
 
 ## 项目内容
 
