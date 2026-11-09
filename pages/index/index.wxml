@@ -1,0 +1,58 @@
+<view class="shell">
+  <view class="brand-row">
+    <view class="brand"><view class="brand-mark">↟</view><text>日常碳迹</text></view>
+    <text class="header-note">了解一点点，改变一点点</text>
+  </view>
+
+  <view class="hero">
+    <text class="eyebrow">YOUR DAILY FOOTPRINT</text>
+    <text class="hero-title">今天的生活，留下多少碳？</text>
+    <text class="hero-copy">从饮食、出行和吸烟习惯，估算你一天的生活碳排放。没有标准答案，每一次了解都是改变的开始。</text>
+    <text class="hero-tag">🌿 个人碳排放估算器</text>
+  </view>
+
+  <view class="card form-card">
+    <view class="section-head">
+      <view><text class="section-title">告诉我们你的日常</text><text class="section-copy">调整选项，查看每日估算</text></view>
+      <text class="step">约 1 分钟</text>
+    </view>
+
+    <view class="fields">
+      <view class="field"><text class="label">体重</text><view class="input-wrap"><input type="digit" value="{{weight}}" data-key="weight" bindinput="onInput"/><text class="unit">kg</text></view></view>
+      <view class="field"><text class="label">身高</text><view class="input-wrap"><input type="digit" value="{{height}}" data-key="height" bindinput="onInput"/><text class="unit">cm</text></view></view>
+    </view>
+
+    <view class="divider"></view>
+    <text class="subhead">🚲 今天的出行</text>
+    <view class="fields">
+      <view class="field"><text class="label">主要出行方式</text><picker mode="selector" range="{{transportOptions}}" range-key="label" value="{{transportIndex}}" data-key="transportIndex" bindchange="onPickerChange"><view class="picker-value">{{transportOptions[transportIndex].label}}<text class="chevron">⌄</text></view></picker></view>
+      <view class="field"><text class="label">出行距离</text><view class="input-wrap"><input type="digit" value="{{distance}}" data-key="distance" bindinput="onInput"/><text class="unit">km / 天</text></view></view>
+    </view>
+
+    <view class="divider"></view>
+    <text class="subhead">🥗 今天的饮食</text>
+    <view class="fields">
+      <view class="field"><text class="label">饮食结构</text><picker mode="selector" range="{{dietOptions}}" range-key="label" value="{{dietIndex}}" data-key="dietIndex" bindchange="onPickerChange"><view class="picker-value">{{dietOptions[dietIndex].label}}<text class="chevron">⌄</text></view></picker></view>
+      <view class="field"><text class="label">今天吃了几餐</text><picker mode="selector" range="{{mealsOptions}}" range-key="label" value="{{mealsIndex}}" data-key="mealsIndex" bindchange="onPickerChange"><view class="picker-value">{{mealsOptions[mealsIndex].label}}<text class="chevron">⌄</text></view></picker></view>
+    </view>
+
+    <view class="divider"></view>
+    <text class="subhead">🚬 吸烟情况</text>
+    <view class="field"><text class="label">今天吸了几支烟</text><view class="range-row"><slider min="0" max="40" step="1" value="{{cigs}}" activeColor="#347653" backgroundColor="#e5e9e0" block-size="22" bindchanging="onCigsChange" bindchange="onCigsChange"/><view class="range-val">{{cigs}} 支</view></view></view>
+    <view class="button-row"><button class="primary" bindtap="updateResult">更新我的碳足迹　→</button><button class="secondary" bindtap="resetForm">重置</button></view>
+  </view>
+
+  <view class="card result-card" aria-live="polite">
+    <view class="result-top"><text class="result-title">你的每日估算</text><text class="today">{{today}}</text></view>
+    <view class="total"><text class="total-number">{{total}}</text><text class="total-unit">kg CO₂e / 天</text></view>
+    <view class="comparison"><text>🌱</text><text>{{comparison}}</text></view>
+    <view class="chart-center"><text class="chart-label">各项排放占比</text><text class="chart-total">{{chartTotal}} <text class="chart-unit">kg CO₂e</text></text></view>
+    <view class="stacked-bar"><view wx:for="{{legend}}" wx:key="label" class="bar-segment" style="width: {{item.width}}; background: {{item.color}}"></view></view>
+    <view class="legend"><view class="legend-row" wx:for="{{legend}}" wx:key="label"><view class="legend-label"><view class="dot" style="background: {{item.color}}"></view><text>{{item.label}}</text></view><text class="legend-value">{{item.value}} kg</text></view></view>
+    <view class="tree-card"><view class="tree-head"><text class="tree-title">换算成树木吸收量</text><text class="tree-emoji">🌳</text></view><view class="tree-num">{{trees}} <text>棵树 · 持续一年</text></view><text class="tree-copy">按当前每日排放持续一年，并以一棵树年均吸收约 22 kg CO₂ 粗略换算</text></view>
+    <view class="breath"><view class="breath-label">呼吸产生的 CO₂<text>单独展示，不计入生活净排放</text></view><view class="breath-value">{{breath}}<text>kg CO₂ / 天（估算）</text></view></view>
+    <text class="footnote">估算仅用于科普与个人习惯比较：饮食按餐均排放系数估算，出行按每公里系数估算，吸烟按燃烧与消费链条简化估算。呼吸排出的碳主要来自近期食物中的生物碳，通常不计入个人净碳足迹。结果不代表精确测量。</text>
+  </view>
+</view>
+<view wx:if="{{showToast}}" class="toast">已更新你的每日估算</view>
+
