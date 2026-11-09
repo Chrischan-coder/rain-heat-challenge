@@ -442,6 +442,15 @@
 
     function currentRound() { return rounds[state.round]; }
 
+    function updateRunButtonState() {
+      if (state.locked) return;
+      const remaining = groups.length - groups.filter(group => state.choices[group.id]).length;
+      el('runButton').disabled = remaining > 0;
+      el('roundHint').textContent = remaining
+        ? `再选择 ${remaining} 项策略后即可执行`
+        : '五项策略已选好，可以执行本轮调度';
+    }
+
     function renderChoiceGroups() {
       const round = currentRound();
       const host = el('choiceList');
@@ -457,7 +466,7 @@
 
     function setRoundContent() {
       const round = currentRound();
-      state.choices = { ...round.ideal };
+      state.choices = {};
       state.locked = false;
       el('stageKicker').textContent = round.kicker;
       el('stageTitle').textContent = round.title;
@@ -468,11 +477,12 @@
       el('feedback').className = 'feedback';
       el('feedbackTitle').textContent = '';
       el('feedbackText').textContent = '';
-      el('runButton').disabled = false;
+      el('runButton').disabled = true;
       el('runButton').textContent = state.round === rounds.length - 1 ? '锁定本轮并完成值守　→' : '锁定本轮调度　→';
       el('roundHint').textContent = '做出选择，再执行本轮调度';
       el('progress').style.width = `${(state.round + 1) / rounds.length * 100}%`;
       renderChoiceGroups();
+      updateRunButtonState();
     }
 
     function updateMetrics() {
@@ -538,6 +548,7 @@
       if (!button || state.locked) return;
       state.choices[button.dataset.group] = button.dataset.choice;
       renderChoiceGroups();
+      updateRunButtonState();
     });
 
     el('runButton').addEventListener('click', () => {
@@ -572,4 +583,3 @@
   </script>
 </body>
 </html>
-
