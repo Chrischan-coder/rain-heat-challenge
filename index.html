@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6ef">
+  <title>日常碳迹｜看看今天的生活碳排</title>
+  <style>
+    :root{--ink:#20352b;--muted:#728078;--green:#347653;--mint:#dcebdc;--paper:#fbfcf8;--line:#e5e9e0;--orange:#e8a34a;--blue:#719bb1;--red:#d8755c}
+    *{box-sizing:border-box} body{margin:0;background:#f3f5ef;color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55}
+    button,input,select{font:inherit} .shell{max-width:1180px;margin:auto;padding:26px 24px 58px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}.brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:17px}.brand-mark{width:34px;height:34px;border-radius:12px;background:var(--green);display:grid;place-items:center;color:white;font-size:19px}.header-note{color:var(--muted);font-size:13px}
+    .hero{padding:35px 42px 37px;border-radius:26px;background:linear-gradient(115deg,#e2eddf,#eef2e7 65%,#f4ead7);position:relative;overflow:hidden;margin-bottom:25px}.hero:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #8baa8c55;border-radius:50%;right:90px;top:-95px;box-shadow:0 0 0 25px #8baa8c12,0 0 0 55px #8baa8c0c}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--green);font-weight:700}.hero h1{font-size:clamp(27px,4vw,40px);line-height:1.2;margin:10px 0 10px;letter-spacing:-.7px}.hero p{max-width:580px;margin:0;color:#596d60;font-size:15px}.hero-tag{position:absolute;right:40px;bottom:29px;background:#ffffffa8;padding:10px 15px;border-radius:99px;font-size:13px;color:#55705d;z-index:1}
+    .layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:22px;align-items:start}.card{background:var(--paper);border:1px solid #e9ece5;border-radius:20px;padding:25px;box-shadow:0 5px 20px #344b3510}.section-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.section-head h2{font-size:18px;margin:0 0 3px}.section-head p{margin:0;color:var(--muted);font-size:13px}.step{font-size:11px;color:#65816d;background:#edf3e9;padding:5px 9px;border-radius:99px;white-space:nowrap}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label,.label{font-size:13px;font-weight:650;color:#42584b}.input-wrap{position:relative}.input-wrap input,.field select{width:100%;height:44px;border:1px solid var(--line);border-radius:11px;padding:0 13px;background:#fff;color:var(--ink);outline:none}.input-wrap input:focus,.field select:focus{border-color:#7da68a;box-shadow:0 0 0 3px #34765315}.unit{position:absolute;right:13px;top:10px;color:#96a097;font-size:13px;pointer-events:none}.hint{font-size:11px;color:#919b93;margin-top:-3px}.divider{height:1px;background:var(--line);margin:20px 0}.subhead{font-size:14px;font-weight:700;margin:0 0 13px}.range-row{display:grid;grid-template-columns:1fr 65px;gap:12px;align-items:center}.range-row input{accent-color:var(--green);width:100%}.range-val{font-size:13px;text-align:center;background:#f0f4ec;padding:5px;border-radius:8px;color:var(--green);font-weight:700}.select-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field select{height:43px}.button-row{display:flex;gap:10px;margin-top:23px}.primary,.secondary{border:0;border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:700}.primary{background:var(--green);color:white;flex:1;box-shadow:0 5px 12px #34765327}.primary:hover{background:#286443}.secondary{background:#edf1e9;color:#617268}.result{position:sticky;top:16px}.result-top{display:flex;justify-content:space-between;align-items:center}.result-title{font-size:17px;font-weight:750}.today{font-size:12px;color:#7e8b81}.total{display:flex;align-items:baseline;gap:8px;margin-top:13px}.total strong{font-size:47px;line-height:1;font-weight:760;letter-spacing:-1.5px}.total span{font-size:14px;color:#617268}.comparison{background:#eff5ec;padding:12px 14px;border-radius:12px;margin:16px 0 18px;display:flex;gap:10px;align-items:center;color:#54715c;font-size:13px}.comparison b{color:var(--green)}.chart-area{display:grid;grid-template-columns:155px 1fr;gap:18px;align-items:center}.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--green) 0 35%,var(--orange) 35% 64%,var(--blue) 64% 85%,var(--red) 85% 100%);display:grid;place-items:center;position:relative}.donut:after{content:"";position:absolute;inset:15px;background:#fbfcf8;border-radius:50%}.donut-center{position:relative;z-index:1;text-align:center;font-size:12px;color:#738078}.donut-center b{display:block;font-size:18px;color:var(--ink)}.legend{display:grid;gap:11px}.legend-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#617068}.legend-label{display:flex;align-items:center;gap:7px}.dot{width:9px;height:9px;border-radius:50%}.legend-row b{color:#32483b;font-size:12px}.tree-card{margin-top:19px;padding:16px;border:1px solid #e5eadf;border-radius:14px;background:#fafbf7}.tree-head{display:flex;justify-content:space-between;align-items:center}.tree-head strong{font-size:14px}.tree-emoji{font-size:22px}.tree-num{font-size:25px;font-weight:750;color:var(--green);margin-top:5px}.tree-num small{font-size:13px;font-weight:550}.tree-card p{font-size:11px;color:#839087;margin:2px 0 0}.breath{border-top:1px solid var(--line);margin-top:17px;padding-top:15px;display:flex;justify-content:space-between;align-items:center}.breath-label{font-size:13px;font-weight:700}.breath-label small{display:block;font-size:11px;font-weight:400;color:#89948b;margin-top:2px}.breath-value{text-align:right;font-weight:750;font-size:16px}.breath-value small{font-size:11px;color:#879189;font-weight:400;display:block}.footnote{margin-top:14px;color:#89948b;font-size:10.5px;line-height:1.6}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#263e30;color:white;padding:10px 16px;border-radius:10px;font-size:13px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:850px){.layout{grid-template-columns:1fr}.result{position:static}.hero-tag{display:none}}@media(max-width:520px){.shell{padding:17px 14px 36px}header{margin-bottom:19px}.header-note{display:none}.hero{padding:27px 23px;border-radius:20px}.card{padding:19px;border-radius:17px}.fields{gap:12px}.chart-area{grid-template-columns:130px 1fr;gap:12px}.donut{width:126px;height:126px}.donut:after{inset:13px}.total strong{font-size:42px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header><div class="brand"><div class="brand-mark">↟</div>日常碳迹</div><div class="header-note">了解一点点，改变一点点</div></header>
+    <section class="hero"><div class="eyebrow">YOUR DAILY FOOTPRINT</div><h1>今天的生活，留下多少碳？</h1><p>从饮食、出行和吸烟习惯，估算你一天的生活碳排放。没有标准答案，每一次了解都是改变的开始。</p><div class="hero-tag">🌿 个人碳排放估算器</div></section>
+    <div class="layout">
+      <section class="card">
+        <div class="section-head"><div><h2>告诉我们你的日常</h2><p>调整选项，右侧结果会即时更新</p></div><span class="step">约 1 分钟</span></div>
+        <form id="form">
+          <div class="fields">
+            <div class="field"><label for="weight">体重</label><div class="input-wrap"><input id="weight" type="number" min="25" max="250" value="65"><span class="unit">kg</span></div></div>
+            <div class="field"><label for="height">身高</label><div class="input-wrap"><input id="height" type="number" min="100" max="230" value="170"><span class="unit">cm</span></div></div>
+          </div>
+          <div class="divider"></div>
+          <p class="subhead">🚲 今天的出行</p>
+          <div class="fields">
+            <div class="field"><label for="transport">主要出行方式</label><select id="transport"><option value="0.04">步行 / 骑行</option><option value="0.05">公交 / 地铁</option><option value="0.21" selected>网约车 / 汽车</option><option value="0.12">混合出行</option></select></div>
+            <div class="field"><label for="distance">出行距离</label><div class="input-wrap"><input id="distance" type="number" min="0" max="500" value="18"><span class="unit">km / 天</span></div></div>
+          </div>
+          <div class="divider"></div>
+          <p class="subhead">🥗 今天的饮食</p>
+          <div class="select-grid">
+            <div class="field"><label for="diet">饮食结构</label><select id="diet"><option value="1.2">以植物性食物为主</option><option value="2.5" selected>荤素均衡</option><option value="3.8">肉类较多</option></select></div>
+            <div class="field"><label for="meals">今天吃了几餐</label><select id="meals"><option value="2">1–2 餐</option><option value="3" selected>3 餐</option><option value="4">4 餐及以上</option></select></div>
+          </div>
+          <div class="divider"></div>
+          <p class="subhead">🚬 吸烟情况</p>
+          <div class="field"><label for="cigs">今天吸了几支烟</label><div class="range-row"><input id="cigs" type="range" min="0" max="40" value="0"><div class="range-val"><span id="cigsOut">0</span> 支</div></div></div>
+          <div class="button-row"><button class="primary" type="submit">更新我的碳足迹　→</button><button class="secondary" id="reset" type="button">重置</button></div>
+        </form>
+      </section>
+      <section class="card result" aria-live="polite">
+        <div class="result-top"><div class="result-title">你的每日估算</div><div class="today" id="today"></div></div>
+        <div class="total"><strong id="total">—</strong><span>kg CO₂e / 天</span></div>
+        <div class="comparison">🌱 <span id="comparison">填写信息，看看你的生活碳足迹</span></div>
+        <div class="chart-area"><div class="donut" id="donut"><div class="donut-center"><b id="chartTotal">—</b>kg CO₂e</div></div><div class="legend" id="legend"></div></div>
+        <div class="tree-card"><div class="tree-head"><strong>换算成树木吸收量</strong><span class="tree-emoji">🌳</span></div><div class="tree-num"><span id="trees">—</span> <small>棵树 · 持续一年</small></div><p>按当前每日排放持续一年，并以一棵树年均吸收约 22 kg CO₂ 粗略换算</p></div>
+        <div class="breath"><div class="breath-label">呼吸产生的 CO₂<small>单独展示，不计入生活净排放</small></div><div class="breath-value"><span id="breath">—</span><small>kg CO₂ / 天（估算）</small></div></div>
+        <div class="footnote">估算仅用于科普与个人习惯比较：饮食按餐均排放系数估算，出行按每公里系数估算，吸烟按燃烧与消费链条简化估算。呼吸排出的碳主要来自近期食物中的生物碳，通常不计入个人净碳足迹。结果不代表精确测量。</div>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast">已更新你的每日估算</div>
+  <script>
+    const $=id=>document.getElementById(id), fields=['weight','height','transport','distance','diet','meals','cigs'];
+    const colors=['#347653','#e8a34a','#719bb1','#d8755c'];
+    function calculate(showToast=false){
+      const w=Math.max(25,Number($('weight').value)||65), h=Math.max(100,Number($('height').value)||170), km=Math.max(0,Number($('distance').value)||0);
+      const transport=km*Number($('transport').value), food=Number($('diet').value)*Number($('meals').value), smoke=Number($('cigs').value)*.014;
+      const home=.72; // 日常用能及消费的简化均摊值
+      const parts=[transport,food,home,smoke], labels=['出行','饮食','日常用能','吸烟']; const total=parts.reduce((a,b)=>a+b,0);
+      const breath=w*.0095*Math.pow(h/170,.15); // 按体重和身高估算的呼吸排出量，仅作科普展示
+      $('total').textContent=total.toFixed(1); $('chartTotal').textContent=total.toFixed(1); $('trees').textContent=(total/22*365).toFixed(1); $('breath').textContent=breath.toFixed(2);
+      $('comparison').innerHTML=total<4?'你的估算值较低，继续保持轻盈的日常选择。':total<8?'这大约相当于一杯外带咖啡的重量级别。':'出行和饮食是可以优先留意的两个部分。';
+      const perc=parts.map(v=>total?v/total*100:0); let acc=0; const stops=perc.map((p,i)=>{const a=acc;acc+=p;return `${colors[i]} ${a}% ${acc}%`}).join(', '); $('donut').style.background=`conic-gradient(${stops})`;
+      $('legend').innerHTML=parts.map((v,i)=>`<div class="legend-row"><span class="legend-label"><i class="dot" style="background:${colors[i]}"></i>${labels[i]}</span><b>${v.toFixed(1)} kg</b></div>`).join('');
+      $('cigsOut').textContent=$('cigs').value;
+      if(showToast){$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1600)}
+    }
+    $('today').textContent=new Intl.DateTimeFormat('zh-CN',{month:'long',day:'numeric'}).format(new Date());
+    fields.forEach(id=>$(id).addEventListener('input',()=>calculate(false)));
+    $('form').addEventListener('submit',e=>{e.preventDefault();calculate(true)});
+    $('reset').addEventListener('click',()=>{$('weight').value=65;$('height').value=170;$('transport').value='0.21';$('distance').value=18;$('diet').value='2.5';$('meals').value='3';$('cigs').value=0;calculate(false)});
+    calculate();
+  </script>
+</body>
+</html>
+
