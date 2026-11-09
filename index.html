@@ -3,82 +3,575 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f6ef">
-  <title>日常碳迹｜看看今天的生活碳排</title>
+  <meta name="theme-color" content="#071c20">
+  <meta name="description" content="云合 RAIN–HEAT 多场耦合系统互动调度小游戏。">
+  <title>云合调度员｜RAIN–HEAT 系统挑战</title>
   <style>
-    :root{--ink:#20352b;--muted:#728078;--green:#347653;--mint:#dcebdc;--paper:#fbfcf8;--line:#e5e9e0;--orange:#e8a34a;--blue:#719bb1;--red:#d8755c}
-    *{box-sizing:border-box} body{margin:0;background:#f3f5ef;color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55}
-    button,input,select{font:inherit} .shell{max-width:1180px;margin:auto;padding:26px 24px 58px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:34px}.brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:17px}.brand-mark{width:34px;height:34px;border-radius:12px;background:var(--green);display:grid;place-items:center;color:white;font-size:19px}.header-note{color:var(--muted);font-size:13px}
-    .hero{padding:35px 42px 37px;border-radius:26px;background:linear-gradient(115deg,#e2eddf,#eef2e7 65%,#f4ead7);position:relative;overflow:hidden;margin-bottom:25px}.hero:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #8baa8c55;border-radius:50%;right:90px;top:-95px;box-shadow:0 0 0 25px #8baa8c12,0 0 0 55px #8baa8c0c}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--green);font-weight:700}.hero h1{font-size:clamp(27px,4vw,40px);line-height:1.2;margin:10px 0 10px;letter-spacing:-.7px}.hero p{max-width:580px;margin:0;color:#596d60;font-size:15px}.hero-tag{position:absolute;right:40px;bottom:29px;background:#ffffffa8;padding:10px 15px;border-radius:99px;font-size:13px;color:#55705d;z-index:1}
-    .layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:22px;align-items:start}.card{background:var(--paper);border:1px solid #e9ece5;border-radius:20px;padding:25px;box-shadow:0 5px 20px #344b3510}.section-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.section-head h2{font-size:18px;margin:0 0 3px}.section-head p{margin:0;color:var(--muted);font-size:13px}.step{font-size:11px;color:#65816d;background:#edf3e9;padding:5px 9px;border-radius:99px;white-space:nowrap}
-    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label,.label{font-size:13px;font-weight:650;color:#42584b}.input-wrap{position:relative}.input-wrap input,.field select{width:100%;height:44px;border:1px solid var(--line);border-radius:11px;padding:0 13px;background:#fff;color:var(--ink);outline:none}.input-wrap input:focus,.field select:focus{border-color:#7da68a;box-shadow:0 0 0 3px #34765315}.unit{position:absolute;right:13px;top:10px;color:#96a097;font-size:13px;pointer-events:none}.hint{font-size:11px;color:#919b93;margin-top:-3px}.divider{height:1px;background:var(--line);margin:20px 0}.subhead{font-size:14px;font-weight:700;margin:0 0 13px}.range-row{display:grid;grid-template-columns:1fr 65px;gap:12px;align-items:center}.range-row input{accent-color:var(--green);width:100%}.range-val{font-size:13px;text-align:center;background:#f0f4ec;padding:5px;border-radius:8px;color:var(--green);font-weight:700}.select-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field select{height:43px}.button-row{display:flex;gap:10px;margin-top:23px}.primary,.secondary{border:0;border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:700}.primary{background:var(--green);color:white;flex:1;box-shadow:0 5px 12px #34765327}.primary:hover{background:#286443}.secondary{background:#edf1e9;color:#617268}.result{position:sticky;top:16px}.result-top{display:flex;justify-content:space-between;align-items:center}.result-title{font-size:17px;font-weight:750}.today{font-size:12px;color:#7e8b81}.total{display:flex;align-items:baseline;gap:8px;margin-top:13px}.total strong{font-size:47px;line-height:1;font-weight:760;letter-spacing:-1.5px}.total span{font-size:14px;color:#617268}.comparison{background:#eff5ec;padding:12px 14px;border-radius:12px;margin:16px 0 18px;display:flex;gap:10px;align-items:center;color:#54715c;font-size:13px}.comparison b{color:var(--green)}.chart-area{display:grid;grid-template-columns:155px 1fr;gap:18px;align-items:center}.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--green) 0 35%,var(--orange) 35% 64%,var(--blue) 64% 85%,var(--red) 85% 100%);display:grid;place-items:center;position:relative}.donut:after{content:"";position:absolute;inset:15px;background:#fbfcf8;border-radius:50%}.donut-center{position:relative;z-index:1;text-align:center;font-size:12px;color:#738078}.donut-center b{display:block;font-size:18px;color:var(--ink)}.legend{display:grid;gap:11px}.legend-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#617068}.legend-label{display:flex;align-items:center;gap:7px}.dot{width:9px;height:9px;border-radius:50%}.legend-row b{color:#32483b;font-size:12px}.tree-card{margin-top:19px;padding:16px;border:1px solid #e5eadf;border-radius:14px;background:#fafbf7}.tree-head{display:flex;justify-content:space-between;align-items:center}.tree-head strong{font-size:14px}.tree-emoji{font-size:22px}.tree-num{font-size:25px;font-weight:750;color:var(--green);margin-top:5px}.tree-num small{font-size:13px;font-weight:550}.tree-card p{font-size:11px;color:#839087;margin:2px 0 0}.breath{border-top:1px solid var(--line);margin-top:17px;padding-top:15px;display:flex;justify-content:space-between;align-items:center}.breath-label{font-size:13px;font-weight:700}.breath-label small{display:block;font-size:11px;font-weight:400;color:#89948b;margin-top:2px}.breath-value{text-align:right;font-weight:750;font-size:16px}.breath-value small{font-size:11px;color:#879189;font-weight:400;display:block}.footnote{margin-top:14px;color:#89948b;font-size:10.5px;line-height:1.6}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#263e30;color:white;padding:10px 16px;border-radius:10px;font-size:13px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:850px){.layout{grid-template-columns:1fr}.result{position:static}.hero-tag{display:none}}@media(max-width:520px){.shell{padding:17px 14px 36px}header{margin-bottom:19px}.header-note{display:none}.hero{padding:27px 23px;border-radius:20px}.card{padding:19px;border-radius:17px}.fields{gap:12px}.chart-area{grid-template-columns:130px 1fr;gap:12px}.donut{width:126px;height:126px}.donut:after{inset:13px}.total strong{font-size:42px}}
+    :root {
+      color-scheme: dark;
+      --night: #071c20;
+      --deep: #0a2528;
+      --panel: rgba(13, 42, 44, .88);
+      --panel-soft: rgba(21, 57, 57, .72);
+      --line: rgba(183, 224, 204, .12);
+      --text: #eff8e9;
+      --muted: #9cb5a9;
+      --mint: #a5efc1;
+      --green: #57d59b;
+      --gold: #f5c66b;
+      --water: #62d6e2;
+      --heat: #ff9566;
+      --violet: #b8a8ff;
+      --danger: #ff7870;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 320px; background: var(--night); scroll-behavior: smooth; }
+    body { margin: 0; color: var(--text); font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; line-height: 1.55; background: radial-gradient(ellipse at 50% -20%, #1c5950 0, transparent 44%), radial-gradient(ellipse at 88% 38%, #173d42 0, transparent 30%), linear-gradient(160deg, #071c20, #0a2528 62%, #102d2c); min-height: 100vh; }
+    button { font: inherit; color: inherit; }
+    button:focus-visible, summary:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+    .page { width: min(1440px, 100%); margin: auto; padding: 22px clamp(16px, 3vw, 44px) 44px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+    .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; font-weight: 800; letter-spacing: .02em; }
+    .brand-mark { width: 43px; height: 43px; border-radius: 15px; background: linear-gradient(145deg, #74e5af, #2ba77c); color: #07241e; display: grid; place-items: center; font-size: 23px; box-shadow: 0 8px 28px #39d59630; }
+    .brand small { display: block; color: #8ab1a1; font-size: 10px; letter-spacing: .18em; margin-top: 1px; font-weight: 700; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .link-pill, .icon-pill { border: 1px solid var(--line); border-radius: 999px; background: #ffffff08; color: #bbd1c4; padding: 9px 15px; font-size: 12px; cursor: pointer; text-decoration: none; transition: .2s ease; }
+    .link-pill:hover, .icon-pill:hover { border-color: #a5efc160; color: var(--mint); background: #a5efc10e; transform: translateY(-1px); }
+    .hero { display: grid; grid-template-columns: 1.3fr .7fr; gap: 24px; align-items: end; margin-bottom: 25px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--mint); font-size: 11px; letter-spacing: .19em; font-weight: 800; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 20px; height: 1px; background: var(--mint); box-shadow: 0 0 12px var(--green); }
+    h1 { margin: 10px 0 9px; font-size: clamp(32px, 4.3vw, 56px); letter-spacing: -.04em; line-height: 1.08; }
+    h1 span { color: var(--mint); }
+    .intro { max-width: 760px; color: #a8c0b3; margin: 0; font-size: 14px; }
+    .audience { justify-self: end; max-width: 340px; color: #91aa9e; font-size: 11px; text-align: right; line-height: 1.8; }
+    .audience b { color: #d4e8da; font-weight: 650; }
+    .game-layout { display: grid; grid-template-columns: minmax(0, 1.42fr) minmax(360px, .78fr); gap: 18px; align-items: stretch; }
+    .glass { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(17, 51, 51, .9), rgba(9, 31, 34, .94)); border-radius: var(--radius); box-shadow: 0 18px 60px #020e1248, inset 0 1px #ffffff08; overflow: hidden; }
+    .map-card { min-height: 640px; position: relative; }
+    .map-head { padding: 20px 22px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; position: relative; z-index: 2; }
+    .stage-kicker { color: var(--mint); font-size: 10px; font-weight: 800; letter-spacing: .18em; }
+    .stage-title { margin: 4px 0 4px; font-size: 19px; line-height: 1.3; }
+    .stage-copy { margin: 0; max-width: 560px; color: #9ab5a7; font-size: 12px; }
+    .round-count { flex: 0 0 auto; border: 1px solid #a5efc127; background: #a5efc10c; border-radius: 99px; color: #bcebc9; padding: 7px 11px; font-size: 11px; }
+    .map-wrap { position: relative; padding: 0 6px; margin-top: 2px; }
+    .map-svg { display: block; width: 100%; height: auto; min-height: 375px; overflow: visible; }
+    .map-grid { opacity: .19; }
+    .flow { fill: none; stroke-dasharray: 9 11; stroke-linecap: round; animation: dash 2.4s linear infinite; }
+    .flow-water { stroke: var(--water); stroke-width: 4; filter: url(#glowWater); }
+    .flow-power { stroke: var(--gold); stroke-width: 3.5; filter: url(#glowGold); animation-duration: 1.7s; }
+    .flow-heat { stroke: var(--heat); stroke-width: 4; filter: url(#glowHeat); animation-duration: 2s; }
+    .flow-return { stroke: #73dba6; stroke-width: 3.5; filter: url(#glowGreen); animation-duration: 2.8s; }
+    .flow-muted { opacity: .25; }
+    .flow-pulse { stroke-dasharray: 5 15; animation-duration: 1.1s; }
+    @keyframes dash { to { stroke-dashoffset: -40; } }
+    @keyframes breathe { 50% { opacity: .45; transform: scale(1.035); } }
+    @keyframes bob { 50% { transform: translateY(-4px); } }
+    .sun-glow { animation: breathe 4s ease-in-out infinite; transform-origin: 162px 102px; }
+    .steam { animation: bob 3s ease-in-out infinite; }
+    .map-label { font: 700 14px Inter, "PingFang SC", sans-serif; fill: #edf7e9; paint-order: stroke; stroke: #0b2527; stroke-width: 4px; stroke-linejoin: round; }
+    .map-sub { font: 500 10px Inter, "PingFang SC", sans-serif; fill: #a0bbb0; paint-order: stroke; stroke: #0b2527; stroke-width: 3px; }
+    .map-micro { font: 700 8px Inter, "PingFang SC", sans-serif; fill: #b8d2c2; letter-spacing: .08em; }
+    .map-tag { fill: #102c2e; stroke: #45705e; stroke-width: 1; }
+    .map-foot { display: flex; flex-wrap: wrap; gap: 9px 15px; padding: 1px 21px 17px; color: #95ada1; font-size: 10px; position: relative; z-index: 1; }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-line { width: 18px; height: 3px; border-radius: 4px; }
+    .map-note { margin-left: auto; color: #759488; }
+    .map-glow { pointer-events: none; position: absolute; inset: 20% 10% 16%; background: radial-gradient(ellipse, #38bd7c0b, transparent 65%); }
+    .telemetry { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 18px 18px; }
+    .metric { border: 1px solid #d7ffe10e; background: #d7ffe106; border-radius: 13px; padding: 10px 12px; min-width: 0; }
+    .metric-label { color: #87a697; font-size: 10px; display: flex; justify-content: space-between; gap: 5px; }
+    .metric-value { font-size: 19px; font-weight: 800; letter-spacing: -.03em; margin: 2px 0 6px; }
+    .metric-value small { font-size: 9px; color: #89a69a; font-weight: 500; letter-spacing: 0; }
+    .meter { height: 4px; border-radius: 99px; background: #ffffff11; overflow: hidden; }
+    .meter i { display: block; height: 100%; border-radius: inherit; transition: width .5s ease; }
+    .metric:nth-child(1) .meter i { background: linear-gradient(90deg, #e7b955, #ffdf89); }
+    .metric:nth-child(2) .meter i { background: linear-gradient(90deg, #48bfe0, #7df1e0); }
+    .metric:nth-child(3) .meter i { background: linear-gradient(90deg, #4bc88d, #9df1b6); }
+    .metric:nth-child(4) .meter i { background: linear-gradient(90deg, #f28b61, #ffc08d); }
+    .control-card { padding: 20px; display: flex; flex-direction: column; }
+    .control-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .panel-label { color: #8eaa9b; font-size: 10px; letter-spacing: .16em; font-weight: 800; }
+    .score-chip { padding: 7px 11px; border: 1px solid #f5c66b30; background: #f5c66b0d; border-radius: 99px; color: var(--gold); font-size: 11px; white-space: nowrap; }
+    .score-chip b { font-size: 15px; margin-left: 4px; }
+    .mission { padding: 14px 15px; margin: 17px 0 15px; background: linear-gradient(115deg, #b5e8c310, #65d6e20c); border: 1px solid #a5efc11c; border-radius: 15px; }
+    .mission-top { display: flex; align-items: center; gap: 8px; color: #d6eddd; font-size: 12px; font-weight: 750; }
+    .mission-icon { display: inline-grid; width: 23px; height: 23px; border-radius: 8px; place-items: center; background: #a5efc118; color: var(--mint); }
+    .mission p { margin: 7px 0 0; color: #9eb7a9; font-size: 11px; line-height: 1.65; }
+    .choice-list { display: grid; gap: 11px; }
+    .choice-group { border: 1px solid #d8ffe10e; background: #ffffff04; border-radius: 14px; padding: 11px; }
+    .choice-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .choice-name { color: #d7e8dc; font-size: 11px; font-weight: 750; display: flex; align-items: center; gap: 7px; }
+    .choice-name i { color: var(--green); font-size: 14px; font-style: normal; }
+    .choice-hint { color: #779486; font-size: 9px; text-align: right; }
+    .choice-options { display: flex; flex-wrap: wrap; gap: 6px; }
+    .option { cursor: pointer; border: 1px solid #d8ffe112; background: #081e20; color: #91aa9e; border-radius: 9px; padding: 7px 9px; font-size: 10px; line-height: 1.35; text-align: left; transition: .18s ease; }
+    .option:hover { color: #dff3e5; border-color: #a5efc14c; }
+    .option.selected { color: #d7f4df; border-color: #57d59b92; background: #57d59b16; box-shadow: inset 0 0 0 1px #57d59b1b; }
+    .option.danger-choice.selected { border-color: #ff787094; background: #ff787012; color: #ffc2b9; }
+    .run-button { width: 100%; margin-top: 14px; border: 0; cursor: pointer; border-radius: 13px; padding: 13px 16px; color: #06241c; background: linear-gradient(100deg, #93edb3, #66d9af); font-size: 12px; font-weight: 850; letter-spacing: .02em; box-shadow: 0 8px 25px #46d59323; transition: .2s; }
+    .run-button:hover { transform: translateY(-1px); filter: brightness(1.06); box-shadow: 0 11px 30px #46d59338; }
+    .run-button:disabled { cursor: default; color: #b4cfc0; background: #416657; box-shadow: none; }
+    .feedback { display: none; border-radius: 14px; padding: 12px 13px; margin-top: 12px; border: 1px solid #73dda534; background: #43bc7710; animation: fade-in .35s ease both; }
+    .feedback.visible { display: block; }
+    .feedback.warn { border-color: #ff9a6852; background: #fc805e10; }
+    .feedback-title { font-size: 11px; font-weight: 800; color: var(--mint); }
+    .feedback.warn .feedback-title { color: #ffc18e; }
+    .feedback p { font-size: 10px; color: #a6bdae; margin: 5px 0 0; line-height: 1.65; }
+    @keyframes fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .progress-line { height: 3px; margin: auto 0 12px; background: #ffffff10; border-radius: 99px; overflow: hidden; }
+    .progress-line i { display: block; width: 33.3%; height: 100%; background: linear-gradient(90deg, #57d59b, #f5c66b); transition: width .4s ease; }
+    .controls-footer { display: flex; align-items: center; justify-content: space-between; color: #769184; font-size: 9px; margin-top: 13px; }
+    .reset-button { border: 0; background: none; color: #92b2a0; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: 4px; font-size: 10px; }
+    .below { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+    .info-card { padding: 18px 20px; }
+    .info-card h2 { font-size: 13px; margin: 0 0 10px; }
+    .coupling-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .coupling { border-radius: 12px; background: #ffffff05; border: 1px solid #ffffff0d; padding: 10px; }
+    .coupling b { display: block; font-size: 10px; color: #c8e5d1; margin-bottom: 3px; }
+    .coupling span { display: block; color: #839f91; font-size: 9px; line-height: 1.6; }
+    .rules { margin: 0; padding-left: 17px; color: #8fa99b; font-size: 10px; line-height: 1.8; }
+    .rules strong { color: #c9e4d1; font-weight: 650; }
+    details { border-radius: 12px; }
+    summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; color: #d8eadc; font-size: 11px; font-weight: 700; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--mint); font-size: 17px; line-height: 1; }
+    details[open] summary::after { content: "−"; }
+    .disclaimer { color: #769184; font-size: 9px; margin: 12px 0 0; }
+    .final-card { display: none; position: fixed; z-index: 10; inset: 0; padding: 20px; background: #031113cf; backdrop-filter: blur(12px); place-items: center; }
+    .final-card.open { display: grid; }
+    .final-box { width: min(520px, 100%); border-radius: 25px; border: 1px solid #a5efc133; background: linear-gradient(145deg, #123638, #081e22); box-shadow: 0 30px 120px #0009; padding: 28px; animation: fade-in .35s ease both; }
+    .final-eyebrow { color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: .18em; }
+    .final-box h2 { font-size: 25px; margin: 8px 0 4px; }
+    .final-score { font-size: 48px; font-weight: 850; color: var(--mint); letter-spacing: -.04em; }
+    .final-score small { font-size: 14px; color: #8fa99b; letter-spacing: 0; }
+    .final-box p { color: #a9c0b1; font-size: 12px; }
+    .final-list { display: grid; gap: 8px; padding: 13px; border-radius: 13px; background: #ffffff06; color: #bad0c1; font-size: 11px; }
+    .final-list span { display: flex; gap: 8px; align-items: baseline; }
+    .final-list i { color: var(--mint); font-style: normal; }
+    .final-buttons { display: flex; gap: 9px; margin-top: 17px; }
+    .final-buttons button { flex: 1; padding: 11px; border-radius: 12px; cursor: pointer; font-size: 11px; font-weight: 800; }
+    .again { color: #05241c; background: var(--mint); border: 0; }
+    .close-final { border: 1px solid #ffffff24; background: #ffffff08; }
+    .footer { display: flex; justify-content: space-between; gap: 15px; color: #668277; font-size: 9px; padding: 20px 4px 0; }
+    .reduced-motion *, .reduced-motion *::before, .reduced-motion *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    @media (max-width: 980px) { .game-layout { grid-template-columns: 1fr; } .map-card { min-height: auto; } .control-card { min-height: 0; } .choice-list { grid-template-columns: 1fr 1fr; } .progress-line { margin-top: 15px; } }
+    @media (max-width: 680px) { .page { padding: 15px 12px 30px; } .topbar { margin-bottom: 23px; } .top-actions .link-pill { display: none; } .hero { display: block; margin-bottom: 17px; } h1 { font-size: 37px; } .intro { font-size: 12px; } .audience { text-align: left; margin-top: 10px; font-size: 10px; } .map-head { padding: 16px 15px 0; } .stage-title { font-size: 17px; } .stage-copy { font-size: 10px; } .round-count { font-size: 9px; padding: 6px 8px; } .map-wrap { margin: 10px -3px 0; overflow: hidden; } .map-svg { min-height: unset; } .map-foot { padding: 0 14px 13px; font-size: 8px; gap: 8px 11px; } .map-note { width: 100%; margin-left: 0; } .telemetry { grid-template-columns: 1fr 1fr; padding: 0 12px 12px; } .control-card { padding: 14px; } .choice-list { grid-template-columns: 1fr; gap: 8px; } .choice-group { padding: 10px; } .below { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; } .info-card { padding: 15px; } .coupling-list { grid-template-columns: 1fr 1fr; } .footer { display: block; line-height: 1.8; } }
+    @media (max-width: 390px) { .brand { gap: 8px; font-size: 13px; } .brand-mark { width: 37px; height: 37px; border-radius: 13px; } .icon-pill { padding: 8px 10px; } .map-label { font-size: 16px; } .map-sub { font-size: 12px; } .map-micro { font-size: 9px; } }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header><div class="brand"><div class="brand-mark">↟</div>日常碳迹</div><div class="header-note">了解一点点，改变一点点</div></header>
-    <section class="hero"><div class="eyebrow">YOUR DAILY FOOTPRINT</div><h1>今天的生活，留下多少碳？</h1><p>从饮食、出行和吸烟习惯，估算你一天的生活碳排放。没有标准答案，每一次了解都是改变的开始。</p><div class="hero-tag">🌿 个人碳排放估算器</div></section>
-    <div class="layout">
-      <section class="card">
-        <div class="section-head"><div><h2>告诉我们你的日常</h2><p>调整选项，右侧结果会即时更新</p></div><span class="step">约 1 分钟</span></div>
-        <form id="form">
-          <div class="fields">
-            <div class="field"><label for="weight">体重</label><div class="input-wrap"><input id="weight" type="number" min="25" max="250" value="65"><span class="unit">kg</span></div></div>
-            <div class="field"><label for="height">身高</label><div class="input-wrap"><input id="height" type="number" min="100" max="230" value="170"><span class="unit">cm</span></div></div>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="云合调度员主页"><span class="brand-mark">☼</span><span>云合 RAIN–HEAT<small>云南多场耦合 · 互动调度实验室</small></span></a>
+      <nav class="top-actions" aria-label="页面导航">
+        <a class="link-pill" href="#system">系统耦合图</a>
+        <a class="link-pill" href="#rules">运行原则</a>
+        <a class="link-pill" href="carbon-footprint.html">日常碳迹</a>
+        <button class="icon-pill" id="motionToggle" type="button" aria-pressed="false">动效：开</button>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div>
+        <span class="eyebrow">RAIN · HEAT · POWER · WATER</span>
+        <h1>做今天的<span>云合调度员</span></h1>
+        <p class="intro">让地热 ORC 稳定发电，让光伏支撑辅机，让雨水在独立回路里被收集和调蓄，再把尾水余热送到合适的梯级负荷。三轮值守，看看你能否让能量、水和储层一起保持平衡。</p>
+      </div>
+      <div class="audience"><b>为能源与环境专业学生、微电网学习者和项目展示观众设计。</b><br>用直观选择理解多场耦合，不需要先读热力学公式。</div>
+    </section>
+
+    <section class="game-layout" aria-label="云合系统调度游戏">
+      <article class="glass map-card" id="system">
+        <div class="map-head">
+          <div>
+            <div class="stage-kicker" id="stageKicker">FIELD SIMULATOR · DAY SHIFT</div>
+            <h2 class="stage-title" id="stageTitle">晴窗期：把地热跑稳</h2>
+            <p class="stage-copy" id="stageCopy">热源稳定，光伏出力良好。ORC 是连续主电源，先让辅机和控制系统得到可靠供电。</p>
           </div>
-          <div class="divider"></div>
-          <p class="subhead">🚲 今天的出行</p>
-          <div class="fields">
-            <div class="field"><label for="transport">主要出行方式</label><select id="transport"><option value="0.04">步行 / 骑行</option><option value="0.05">公交 / 地铁</option><option value="0.21" selected>网约车 / 汽车</option><option value="0.12">混合出行</option></select></div>
-            <div class="field"><label for="distance">出行距离</label><div class="input-wrap"><input id="distance" type="number" min="0" max="500" value="18"><span class="unit">km / 天</span></div></div>
-          </div>
-          <div class="divider"></div>
-          <p class="subhead">🥗 今天的饮食</p>
-          <div class="select-grid">
-            <div class="field"><label for="diet">饮食结构</label><select id="diet"><option value="1.2">以植物性食物为主</option><option value="2.5" selected>荤素均衡</option><option value="3.8">肉类较多</option></select></div>
-            <div class="field"><label for="meals">今天吃了几餐</label><select id="meals"><option value="2">1–2 餐</option><option value="3" selected>3 餐</option><option value="4">4 餐及以上</option></select></div>
-          </div>
-          <div class="divider"></div>
-          <p class="subhead">🚬 吸烟情况</p>
-          <div class="field"><label for="cigs">今天吸了几支烟</label><div class="range-row"><input id="cigs" type="range" min="0" max="40" value="0"><div class="range-val"><span id="cigsOut">0</span> 支</div></div></div>
-          <div class="button-row"><button class="primary" type="submit">更新我的碳足迹　→</button><button class="secondary" id="reset" type="button">重置</button></div>
-        </form>
-      </section>
-      <section class="card result" aria-live="polite">
-        <div class="result-top"><div class="result-title">你的每日估算</div><div class="today" id="today"></div></div>
-        <div class="total"><strong id="total">—</strong><span>kg CO₂e / 天</span></div>
-        <div class="comparison">🌱 <span id="comparison">填写信息，看看你的生活碳足迹</span></div>
-        <div class="chart-area"><div class="donut" id="donut"><div class="donut-center"><b id="chartTotal">—</b>kg CO₂e</div></div><div class="legend" id="legend"></div></div>
-        <div class="tree-card"><div class="tree-head"><strong>换算成树木吸收量</strong><span class="tree-emoji">🌳</span></div><div class="tree-num"><span id="trees">—</span> <small>棵树 · 持续一年</small></div><p>按当前每日排放持续一年，并以一棵树年均吸收约 22 kg CO₂ 粗略换算</p></div>
-        <div class="breath"><div class="breath-label">呼吸产生的 CO₂<small>单独展示，不计入生活净排放</small></div><div class="breath-value"><span id="breath">—</span><small>kg CO₂ / 天（估算）</small></div></div>
-        <div class="footnote">估算仅用于科普与个人习惯比较：饮食按餐均排放系数估算，出行按每公里系数估算，吸烟按燃烧与消费链条简化估算。呼吸排出的碳主要来自近期食物中的生物碳，通常不计入个人净碳足迹。结果不代表精确测量。</div>
-      </section>
-    </div>
+          <span class="round-count" id="roundCount">第 1 / 3 轮</span>
+        </div>
+        <div class="map-wrap">
+          <div class="map-glow"></div>
+          <svg class="map-svg" viewBox="0 0 1000 540" role="img" aria-labelledby="mapTitle mapDesc">
+            <title id="mapTitle">云合地热、光伏、雨水和尾水梯级利用耦合示意</title>
+            <desc id="mapDesc">地热流体经换热器为封闭的 ORC 工质循环供热，尾水经过梯级热利用和处理后回灌；光伏为辅助负荷供电，雨水经过弃流、过滤和储存后分质使用，微水力设有全通径旁通。</desc>
+            <defs>
+              <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#164942"/><stop offset=".58" stop-color="#12383c"/><stop offset="1" stop-color="#0b252b"/></linearGradient>
+              <linearGradient id="ground" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#245a45"/><stop offset="1" stop-color="#102e2d"/></linearGradient>
+              <linearGradient id="pv" x1="0" x2="1"><stop stop-color="#3ca89b"/><stop offset="1" stop-color="#226278"/></linearGradient>
+              <linearGradient id="sun" x1="0" x2="1"><stop stop-color="#ffe79a"/><stop offset="1" stop-color="#ffb95b"/></linearGradient>
+              <linearGradient id="tank" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#46c7cf" stop-opacity=".7"/><stop offset="1" stop-color="#2b778d" stop-opacity=".4"/></linearGradient>
+              <linearGradient id="well" x1="0" x2="1"><stop stop-color="#573e37"/><stop offset=".5" stop-color="#b2664a"/><stop offset="1" stop-color="#3c3530"/></linearGradient>
+              <radialGradient id="heatGlow"><stop stop-color="#ff9c5b" stop-opacity=".72"/><stop offset="1" stop-color="#f96645" stop-opacity="0"/></radialGradient>
+              <filter id="glowWater" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="glowGold" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="glowHeat" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="glowGreen" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <marker id="arrowWater" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#62d6e2"/></marker>
+              <marker id="arrowPower" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f5c66b"/></marker>
+              <marker id="arrowHeat" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff9566"/></marker>
+              <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#73dba6"/></marker>
+              <pattern id="panelLines" width="28" height="22" patternUnits="userSpaceOnUse"><path d="M0 0V22M0 0H28" stroke="#a2ebe2" stroke-opacity=".32" stroke-width="1"/></pattern>
+            </defs>
+            <rect x="8" y="7" width="984" height="510" rx="23" fill="url(#sky)" stroke="#a8e1c51b"/>
+            <g class="map-grid" stroke="#c8f1dc" stroke-width=".7"><path d="M30 90H970M30 150H970M30 210H970M30 270H970M30 330H970M30 390H970M30 450H970"/><path d="M100 30V495M200 30V495M300 30V495M400 30V495M500 30V495M600 30V495M700 30V495M800 30V495M900 30V495"/></g>
+            <path d="M8 381Q120 355 225 380T428 370T638 382T820 366T992 374V517H8Z" fill="url(#ground)" opacity=".9"/>
+            <path d="M8 408Q160 380 300 401T590 395T820 403T992 390" fill="none" stroke="#6eaa7b" stroke-opacity=".28" stroke-width="2"/>
+            <path d="M8 441Q160 414 300 433T590 426T820 437T992 422" fill="none" stroke="#6eaa7b" stroke-opacity=".18" stroke-width="2"/>
+            <g opacity=".3" fill="#a5efc1"><circle cx="63" cy="69" r="1.5"/><circle cx="373" cy="80" r="1"/><circle cx="709" cy="58" r="1.4"/><circle cx="904" cy="119" r="1"/><circle cx="614" cy="54" r=".8"/></g>
+
+            <!-- Solar funnel: PV is an auxiliary power source, not the main generator. -->
+            <g class="sun-glow"><circle cx="162" cy="102" r="47" fill="url(#heatGlow)" opacity=".52"/><circle cx="162" cy="102" r="18" fill="url(#sun)"/><g stroke="#ffd777" stroke-width="2" opacity=".76"><path d="M162 70V58M162 146V134M130 102H118M206 102H194M139 79L130 70M194 134L185 125M185 79L194 70M130 134L139 125"/></g></g>
+            <path d="M71 190L147 136H331L407 190L252 225Z" fill="url(#pv)" stroke="#8be1d3" stroke-width="2"/>
+            <path d="M71 190L147 136H331L407 190L252 225Z" fill="url(#panelLines)" opacity=".95"/>
+            <path d="M71 190L252 225V238L69 203ZM407 190L252 225V238L409 203Z" fill="#174c55" stroke="#75c6b4" stroke-opacity=".5"/>
+            <path d="M252 225V270" stroke="#65d6e2" stroke-width="4" fill="none" marker-end="url(#arrowWater)"/>
+            <text x="119" y="179" class="map-micro">PV FUNNEL</text>
+            <text x="108" y="256" class="map-label">光伏集雨漏斗</text>
+            <text x="111" y="272" class="map-sub">分组 MPPT · 组件下连续集水层</text>
+
+            <!-- Rainwater treatment and storage loop. -->
+            <path d="M252 270C252 294 181 294 181 320" class="flow flow-water" marker-end="url(#arrowWater)"/>
+            <path d="M180 322H284" stroke="#62d6e2" stroke-width="3" fill="none"/>
+            <rect x="135" y="317" width="90" height="37" rx="8" fill="#153d3f" stroke="#62d6e2" stroke-opacity=".68"/>
+            <path d="M150 329h60M150 338h60M150 347h60" stroke="#62d6e2" stroke-opacity=".35"/>
+            <text x="147" y="312" class="map-sub">弃流 · 过滤</text>
+            <path d="M225 337H290" class="flow flow-water" marker-end="url(#arrowWater)"/>
+            <path d="M293 311h77v72q0 13-38 13t-39-13z" fill="url(#tank)" stroke="#6de0e5" stroke-width="2"/>
+            <ellipse cx="331.5" cy="311" rx="38.5" ry="10" fill="#16515a" stroke="#6de0e5" stroke-width="2"/>
+            <path d="M299 350q32 12 65 0v28q-33 12-65 0z" fill="#57d5dc" opacity=".42"/>
+            <text x="310" y="349" class="map-micro">RAIN</text>
+            <text x="297" y="414" class="map-label">分质储水</text>
+            <text x="275" y="430" class="map-sub">清洗 / 合格冷却补水</text>
+            <path d="M370 345C424 345 414 290 464 290" class="flow flow-water" marker-end="url(#arrowWater)"/>
+            <text x="385" y="331" class="map-sub">水质确认后</text>
+
+            <!-- PV bus and controls. -->
+            <path d="M335 190C405 171 414 197 467 212" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <path d="M362 194C393 230 394 405 440 429" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <text x="378" y="182" class="map-sub">光伏辅助电</text>
+            <rect x="414" y="411" width="100" height="53" rx="14" fill="#173c3c" stroke="#f5c66b" stroke-opacity=".8"/>
+            <circle cx="434" cy="437" r="5" fill="#f5c66b"/><circle cx="452" cy="437" r="5" fill="#57d59b"/><circle cx="470" cy="437" r="5" fill="#62d6e2"/>
+            <text x="429" y="426" class="map-micro">PLC / SCADA</text>
+            <text x="423" y="481" class="map-sub">泵 · 阀 · 传感器</text>
+
+            <!-- Geothermal production, ORC heat exchanger and closed working-fluid loop. -->
+            <ellipse cx="559" cy="400" rx="78" ry="62" fill="url(#heatGlow)" opacity=".34"/>
+            <path d="M555 501V282" stroke="#ff9566" stroke-width="22" stroke-opacity=".16"/>
+            <path d="M555 501V282" stroke="url(#well)" stroke-width="12"/>
+            <path d="M550 457V305" stroke="#ffb27d" stroke-width="2.4" stroke-dasharray="6 9" class="flow flow-heat" marker-end="url(#arrowHeat)"/>
+            <path d="M562 304v160" stroke="#66c7bd" stroke-width="2" stroke-dasharray="5 11" class="flow flow-return" marker-end="url(#arrowGreen)"/>
+            <rect x="526" y="478" width="58" height="18" rx="5" fill="#b96a4f" stroke="#ffbe82"/>
+            <path d="M539 488h31" stroke="#ffdbab" stroke-width="2"/>
+            <text x="518" y="528" class="map-label">地热生产井</text>
+            <text x="517" y="544" class="map-sub">热源参数需由试井确认</text>
+            <path d="M555 291C555 263 576 251 606 251" class="flow flow-heat" marker-end="url(#arrowHeat)"/>
+            <rect x="592" y="220" width="80" height="63" rx="13" fill="#254a43" stroke="#ffad73" stroke-width="2"/>
+            <path d="M607 233c20 15-20 18 0 34s20 18 40 0" fill="none" stroke="#ffb07b" stroke-width="3"/>
+            <text x="606" y="214" class="map-sub">地热侧换热器</text>
+            <path d="M672 251H708" class="flow flow-heat" marker-end="url(#arrowHeat)"/>
+            <rect x="709" y="218" width="131" height="70" rx="16" fill="#1f4741" stroke="#f5c66b" stroke-width="2"/>
+            <circle cx="746" cy="253" r="18" fill="#bf9c51" stroke="#ffe095" stroke-width="2"/>
+            <path d="M746 237v32M730 253h32M735 242l22 22M757 242l-22 22" stroke="#ffebb1" stroke-width="2"/>
+            <path d="M770 238h52M770 252h42M770 266h49" stroke="#8bd8b2" stroke-opacity=".8" stroke-width="2"/>
+            <text x="725" y="207" class="map-label">ORC 主发电</text>
+            <text x="733" y="304" class="map-sub">封闭工质循环 · 主连续电源</text>
+            <path d="M795 218C795 161 694 157 657 220" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <text x="689" y="161" class="map-sub">ORC 工质闭环</text>
+            <path d="M795 288C795 350 692 356 648 282" class="flow flow-return" marker-end="url(#arrowGreen)"/>
+            <text x="719" y="341" class="map-sub">冷凝 · 工质泵</text>
+
+            <!-- Cascade heat use and reinjection. -->
+            <path d="M555 282C555 322 560 339 594 355" class="flow flow-heat" marker-end="url(#arrowHeat)"/>
+            <rect x="589" y="350" width="117" height="57" rx="13" fill="#4b4131" stroke="#ffad73" stroke-opacity=".8"/>
+            <path d="M601 390v-21h21v21M631 390v-28h21v28M662 390v-17h30v17" fill="none" stroke="#ffc185" stroke-width="2"/>
+            <text x="606" y="343" class="map-label">尾水梯级用热</text>
+            <text x="593" y="423" class="map-sub">温室 / 烘干 / 热泵负荷</text>
+            <path d="M706 378C761 378 775 401 827 401" class="flow flow-return" marker-end="url(#arrowGreen)"/>
+            <rect x="738" y="422" width="86" height="37" rx="9" fill="#173c3c" stroke="#73dba6" stroke-opacity=".7"/>
+            <path d="M751 433h60M751 442h60M751 451h60" stroke="#73dba6" stroke-opacity=".4"/>
+            <text x="741" y="475" class="map-sub">处理 · 水质监测</text>
+            <path d="M823 439H866V500" class="flow flow-return" marker-end="url(#arrowGreen)"/>
+            <path d="M866 507V383" stroke="#73dba6" stroke-width="13" stroke-opacity=".17"/>
+            <path d="M866 502V392" stroke="#73dba6" stroke-width="3" stroke-dasharray="5 9" class="flow flow-return" marker-end="url(#arrowGreen)"/>
+            <rect x="849" y="492" width="34" height="15" rx="5" fill="#5a4237" stroke="#8ce0ab"/>
+            <text x="844" y="528" class="map-label">独立回灌井</text>
+            <text x="840" y="544" class="map-sub">按储层与水质验证</text>
+
+            <!-- Low head hydro branch with full-flow bypass. -->
+            <path d="M332 384C341 454 385 461 414 451" class="flow flow-water flow-pulse" marker-end="url(#arrowWater)"/>
+            <circle cx="375" cy="458" r="15" fill="#174449" stroke="#62d6e2" stroke-width="2"/>
+            <path d="M370 450l12 8-12 8z" fill="#86eff0"/>
+            <text x="329" y="493" class="map-sub">微水力支路</text>
+            <text x="305" y="508" class="map-micro">仅辅助传感 · 全通径旁通常开可用</text>
+
+            <g class="steam" opacity=".55" fill="none" stroke="#ffb879" stroke-width="2" stroke-linecap="round"><path d="M536 274q-8-12 0-22t0-22"/><path d="M551 270q-8-12 0-22t0-22"/><path d="M567 274q-8-12 0-22t0-22"/></g>
+            <g transform="translate(38 36)"><rect class="map-tag" width="104" height="25" rx="12"/><circle cx="13" cy="12.5" r="4" fill="#73dba6"/><text x="24" y="16" class="map-micro">系统在线 · 情景演练</text></g>
+          </svg>
+        </div>
+        <div class="map-foot" aria-label="系统图例">
+          <span class="legend-item"><i class="legend-line" style="background:var(--heat)"></i>地热 / 余热</span>
+          <span class="legend-item"><i class="legend-line" style="background:var(--water)"></i>雨水独立回路</span>
+          <span class="legend-item"><i class="legend-line" style="background:var(--gold)"></i>辅助电 / 控制</span>
+          <span class="legend-item"><i class="legend-line" style="background:var(--green)"></i>处理后回灌</span>
+          <span class="map-note">概念运行图 · 非施工设计图</span>
+        </div>
+        <div class="telemetry" aria-label="本局运行指标">
+          <div class="metric"><div class="metric-label"><span>净电力策略指数</span><span>01</span></div><div class="metric-value"><span id="metricNet">68</span><small> / 100</small></div><div class="meter"><i id="meterNet" style="width:68%"></i></div></div>
+          <div class="metric"><div class="metric-label"><span>雨水管理指数</span><span>02</span></div><div class="metric-value"><span id="metricWater">54</span><small> / 100</small></div><div class="meter"><i id="meterWater" style="width:54%"></i></div></div>
+          <div class="metric"><div class="metric-label"><span>回灌安全指数</span><span>03</span></div><div class="metric-value"><span id="metricSafe">78</span><small> / 100</small></div><div class="meter"><i id="meterSafe" style="width:78%"></i></div></div>
+          <div class="metric"><div class="metric-label"><span>尾水利用指数</span><span>04</span></div><div class="metric-value"><span id="metricHeat">46</span><small> / 100</small></div><div class="meter"><i id="meterHeat" style="width:46%"></i></div></div>
+        </div>
+      </article>
+
+      <aside class="glass control-card" aria-label="调度控制台">
+        <div class="control-top"><span class="panel-label">DISPATCH CONSOLE</span><span class="score-chip">本局得分 <b id="score">0</b></span></div>
+        <div class="mission"><div class="mission-top"><span class="mission-icon">✦</span><span id="missionTitle">本轮任务：稳住主电源</span></div><p id="missionText">光伏优先供给泵、阀和传感器。按热源条件稳态运行 ORC，别为了瞬时功率透支系统余量。</p></div>
+        <div class="choice-list" id="choiceList"></div>
+        <button class="run-button" id="runButton" type="button">锁定本轮调度　→</button>
+        <div class="feedback" id="feedback" aria-live="polite"><div class="feedback-title" id="feedbackTitle"></div><p id="feedbackText"></p></div>
+        <div class="progress-line"><i id="progress" style="width:33.3%"></i></div>
+        <div class="controls-footer"><span id="roundHint">做出选择，再执行本轮调度</span><button class="reset-button" id="resetButton" type="button">重新开始</button></div>
+      </aside>
+    </section>
+
+    <section class="below">
+      <article class="glass info-card">
+        <h2>看懂云合的多场耦合</h2>
+        <div class="coupling-list">
+          <div class="coupling"><b>热 · 电</b><span>地热经换热器驱动封闭 ORC，承担连续主发电。</span></div>
+          <div class="coupling"><b>光 · 控</b><span>光伏优先带泵、传感器和控制器等辅助负荷。</span></div>
+          <div class="coupling"><b>雨 · 水</b><span>弃流、过滤、储存后分质使用，不默认进入回灌。</span></div>
+          <div class="coupling"><b>余 · 热</b><span>ORC 尾水按温度匹配烘干、温室或热泵负荷。</span></div>
+          <div class="coupling"><b>水 · 储</b><span>回灌看水质、压差和储层响应，需要独立监测。</span></div>
+          <div class="coupling"><b>微 · 水</b><span>只回收少量排水能量；全通径旁通保障排水。</span></div>
+        </div>
+      </article>
+      <article class="glass info-card" id="rules">
+        <details open>
+          <summary>调度规则与现实边界</summary>
+          <ul class="rules">
+            <li><strong>先保安全，再看净功率。</strong>系统得分是教学化的策略指数，不是电站功率或经济性预测。</li>
+            <li><strong>四类介质保持边界。</strong>地热流体、ORC 工质、雨水和冷却水各走独立回路。</li>
+            <li><strong>雨水不直接回灌。</strong>需完成水化学与配伍试验，水质合格也不自动代表回灌兼容。</li>
+            <li><strong>先试井，再定 ORC。</strong>场址真实井口温度、稳定流量、压力和回灌能力尚需验证。</li>
+          </ul>
+          <p class="disclaimer">本游戏采用方案中的概念流程与风险边界作情景推演，不代表施工图、控制系统或现场实测数据。</p>
+        </details>
+      </article>
+    </section>
+    <footer class="footer"><span>云合 RAIN–HEAT · 地热主供给 × 光伏辅助 × 雨水调蓄 × 尾水梯级利用</span><span>适合课堂、科普与项目展示的概念调度游戏</span></footer>
   </main>
-  <div class="toast" id="toast">已更新你的每日估算</div>
+
+  <section class="final-card" id="finalCard" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
+    <div class="final-box"><div class="final-eyebrow">SHIFT COMPLETE · DISPATCH REVIEW</div><h2 id="finalTitle">云合值守完成</h2><div class="final-score"><span id="finalScore">0</span><small> / 300</small></div><p id="finalLine"></p><div class="final-list" id="finalList"></div><div class="final-buttons"><button class="again" id="againButton" type="button">再跑一班</button><button class="close-final" id="closeFinal" type="button">查看系统图</button></div></div>
+  </section>
+
   <script>
-    const $=id=>document.getElementById(id), fields=['weight','height','transport','distance','diet','meals','cigs'];
-    const colors=['#347653','#e8a34a','#719bb1','#d8755c'];
-    function calculate(showToast=false){
-      const w=Math.max(25,Number($('weight').value)||65), h=Math.max(100,Number($('height').value)||170), km=Math.max(0,Number($('distance').value)||0);
-      const transport=km*Number($('transport').value), food=Number($('diet').value)*Number($('meals').value), smoke=Number($('cigs').value)*.014;
-      const home=.72; // 日常用能及消费的简化均摊值
-      const parts=[transport,food,home,smoke], labels=['出行','饮食','日常用能','吸烟']; const total=parts.reduce((a,b)=>a+b,0);
-      const breath=w*.0095*Math.pow(h/170,.15); // 按体重和身高估算的呼吸排出量，仅作科普展示
-      $('total').textContent=total.toFixed(1); $('chartTotal').textContent=total.toFixed(1); $('trees').textContent=(total/22*365).toFixed(1); $('breath').textContent=breath.toFixed(2);
-      $('comparison').innerHTML=total<4?'你的估算值较低，继续保持轻盈的日常选择。':total<8?'这大约相当于一杯外带咖啡的重量级别。':'出行和饮食是可以优先留意的两个部分。';
-      const perc=parts.map(v=>total?v/total*100:0); let acc=0; const stops=perc.map((p,i)=>{const a=acc;acc+=p;return `${colors[i]} ${a}% ${acc}%`}).join(', '); $('donut').style.background=`conic-gradient(${stops})`;
-      $('legend').innerHTML=parts.map((v,i)=>`<div class="legend-row"><span class="legend-label"><i class="dot" style="background:${colors[i]}"></i>${labels[i]}</span><b>${v.toFixed(1)} kg</b></div>`).join('');
-      $('cigsOut').textContent=$('cigs').value;
-      if(showToast){$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1600)}
+    const optionSets = {
+      orc: [
+        { id: 'steady', label: '稳态运行' },
+        { id: 'boost', label: '追高负荷' },
+        { id: 'reduce', label: '适度降载' }
+      ],
+      water: [
+        { id: 'reserve', label: '弃流过滤后储存' },
+        { id: 'clean', label: '用于组件清洗' },
+        { id: 'cooling', label: '合格后补冷却' },
+        { id: 'mix', label: '直接混入回灌', danger: true }
+      ],
+      heat: [
+        { id: 'cascade', label: '梯级利用尾水余热' },
+        { id: 'hold', label: '旁路待用' },
+        { id: 'overcool', label: '强制深度冷却' }
+      ],
+      reinjection: [
+        { id: 'stable', label: '按验证窗口稳定回灌' },
+        { id: 'slow', label: '降流量并检查压差' },
+        { id: 'push', label: '增压强行回灌', danger: true }
+      ],
+      drainage: [
+        { id: 'bypass', label: '全通径旁通优先' },
+        { id: 'sensor', label: '旁通保通 + 微水力供传感' },
+        { id: 'throttle', label: '水轮机节流排水', danger: true }
+      ]
+    };
+
+    const groups = [
+      { id: 'orc', name: '地热 ORC', icon: '◉', hint: '连续主电源' },
+      { id: 'water', name: '雨水调度', icon: '◌', hint: '水质决定用途' },
+      { id: 'heat', name: '尾水余热', icon: '⌁', hint: '按温度匹配负荷' },
+      { id: 'reinjection', name: '回灌保护', icon: '↘', hint: '监测压力与流量' },
+      { id: 'drainage', name: '排水 / 微水力', icon: '⤵', hint: '排水通畅优先' }
+    ];
+
+    const rounds = [
+      {
+        kicker: 'FIELD SIMULATOR · DAY SHIFT', title: '晴窗期：把地热跑稳',
+        copy: '热源稳定，光伏出力良好。ORC 是连续主电源，先让辅机和控制系统得到可靠供电。',
+        weather: '晴天窗口', mission: '稳住主电源',
+        missionText: '光伏优先供给泵、阀和传感器。按热源条件稳态运行 ORC，别为了瞬时功率透支系统余量。',
+        ideal: { orc: 'steady', water: 'reserve', heat: 'cascade', reinjection: 'stable', drainage: 'bypass' },
+        waterLabels: { reserve: '收集并储存', clean: '安排组件清洗', cooling: '检测合格后补冷却', mix: '直接混入回灌' },
+        feedback: '晴天里让 ORC 稳态运行，光伏承担辅机，储水留给后续需求，并把尾水余热送往合适负荷。',
+        lessons: '光伏是辅助电源；它帮助泵、传感器和控制系统，不替代地热 ORC 主发电。'
+      },
+      {
+        kicker: 'FIELD SIMULATOR · MONSOON WATCH', title: '雨季强降雨：让水各走其路',
+        copy: '单次降雨情景 50 mm；按约 78 m² 投影面积与 0.85 径流系数，理论收集约 3.3 m³，未扣弃流与损失。',
+        weather: '强降雨 · 50 mm 情景', mission: '收雨，但不把雨水送进储层',
+        missionText: '优先弃流、过滤和封闭储存。微水力只能做小功率辅助回收，暴雨排水旁通必须始终可用。',
+        ideal: { orc: 'steady', water: 'reserve', heat: 'cascade', reinjection: 'stable', drainage: 'sensor' },
+        waterLabels: { reserve: '弃流 + 过滤 + 储存', clean: '收集后用于清洗', cooling: '检测合格后补冷却', mix: '未经验证直接回灌' },
+        feedback: '暴雨时先保证弃流、储存和安全溢流。即使水质检测合格，也要先做与冷却或储层的配伍验证。',
+        lessons: '单个集雨单元只提供辅助水量。水轮机不能成为排水瓶颈，更不能被当成主要发电来源。'
+      },
+      {
+        kicker: 'FIELD SIMULATOR · PRESSURE ALERT', title: '阴雨值守：守住回灌窗口',
+        copy: '连续阴雨让光伏辅助电变少，同时回灌压差上升。运行目标从追求输出切换为诊断、降险和稳定控制。',
+        weather: '连续阴雨 · 压差预警', mission: '先诊断压差，再决定回灌流量',
+        missionText: '不要盲目增压。适度降载并优先保障控制负荷，检查过滤器压差、流量与水质，再按验证窗口恢复回灌。',
+        ideal: { orc: 'reduce', water: 'reserve', heat: 'cascade', reinjection: 'slow', drainage: 'bypass' },
+        waterLabels: { reserve: '节约用水，保留关键储量', clean: '暂停非必要清洗', cooling: '水质合格才补冷却', mix: '混入回灌增大流量' },
+        feedback: '压差上升时应先降低注入流量并排查颗粒堵塞或结垢。不要仅靠提高压力强推，更不能未经诊断就化学清洗。',
+        lessons: '长期回灌能力和热突破都需具体井场验证；监测比追逐单点功率更重要。'
+      }
+    ];
+
+    const state = { round: 0, score: 0, locked: false, finished: false, choices: {}, history: [], metrics: { net: 68, water: 54, safe: 78, heat: 46 } };
+    const el = id => document.getElementById(id);
+    const cap = n => Math.max(0, Math.min(100, Math.round(n)));
+
+    function currentRound() { return rounds[state.round]; }
+
+    function renderChoiceGroups() {
+      const round = currentRound();
+      const host = el('choiceList');
+      host.innerHTML = groups.map(group => {
+        const options = optionSets[group.id].map(option => {
+          const label = group.id === 'water' ? round.waterLabels[option.id] : option.label;
+          const selected = state.choices[group.id] === option.id;
+          return `<button type="button" class="option${selected ? ' selected' : ''}${option.danger ? ' danger-choice' : ''}" data-group="${group.id}" data-choice="${option.id}" aria-pressed="${selected}">${label}</button>`;
+        }).join('');
+        return `<section class="choice-group"><div class="choice-head"><span class="choice-name"><i>${group.icon}</i>${group.name}</span><span class="choice-hint">${group.hint}</span></div><div class="choice-options">${options}</div></section>`;
+      }).join('');
     }
-    $('today').textContent=new Intl.DateTimeFormat('zh-CN',{month:'long',day:'numeric'}).format(new Date());
-    fields.forEach(id=>$(id).addEventListener('input',()=>calculate(false)));
-    $('form').addEventListener('submit',e=>{e.preventDefault();calculate(true)});
-    $('reset').addEventListener('click',()=>{$('weight').value=65;$('height').value=170;$('transport').value='0.21';$('distance').value=18;$('diet').value='2.5';$('meals').value='3';$('cigs').value=0;calculate(false)});
-    calculate();
+
+    function setRoundContent() {
+      const round = currentRound();
+      state.choices = { ...round.ideal };
+      state.locked = false;
+      el('stageKicker').textContent = round.kicker;
+      el('stageTitle').textContent = round.title;
+      el('stageCopy').textContent = round.copy;
+      el('roundCount').textContent = `第 ${state.round + 1} / ${rounds.length} 轮 · ${round.weather}`;
+      el('missionTitle').textContent = `本轮任务：${round.mission}`;
+      el('missionText').textContent = round.missionText;
+      el('feedback').className = 'feedback';
+      el('feedbackTitle').textContent = '';
+      el('feedbackText').textContent = '';
+      el('runButton').disabled = false;
+      el('runButton').textContent = state.round === rounds.length - 1 ? '锁定本轮并完成值守　→' : '锁定本轮调度　→';
+      el('roundHint').textContent = '做出选择，再执行本轮调度';
+      el('progress').style.width = `${(state.round + 1) / rounds.length * 100}%`;
+      renderChoiceGroups();
+    }
+
+    function updateMetrics() {
+      for (const [key, value] of Object.entries(state.metrics)) {
+        el(`metric${key[0].toUpperCase()}${key.slice(1)}`).textContent = value;
+        el(`meter${key[0].toUpperCase()}${key.slice(1)}`).style.width = `${value}%`;
+      }
+    }
+
+    function optionQuality(group, choice, target) {
+      if (choice === target) return 1;
+      const safeAlternatives = {
+        orc: { steady: { reduce: .58, boost: .3 }, reduce: { steady: .62, boost: .15 } },
+        water: { reserve: { clean: .65, cooling: .52, mix: 0 } },
+        heat: { cascade: { hold: .58, overcool: .14 } },
+        reinjection: { stable: { slow: .68, push: 0 }, slow: { stable: .55, push: 0 } },
+        drainage: { bypass: { sensor: .88, throttle: 0 }, sensor: { bypass: .85, throttle: 0 } }
+      };
+      return safeAlternatives[group]?.[target]?.[choice] ?? .22;
+    }
+
+    function evaluateRound() {
+      const round = currentRound();
+      const weights = { orc: 22, water: 22, heat: 16, reinjection: 24, drainage: 16 };
+      let roundScore = 0;
+      for (const group of groups) roundScore += weights[group.id] * optionQuality(group.id, state.choices[group.id], round.ideal[group.id]);
+      roundScore = cap(roundScore);
+      state.score += roundScore;
+      const exact = groups.filter(group => state.choices[group.id] === round.ideal[group.id]).length;
+      const risk = state.choices.water === 'mix' || state.choices.reinjection === 'push' || state.choices.drainage === 'throttle';
+      const feedback = el('feedback');
+      feedback.className = `feedback visible${risk ? ' warn' : ''}`;
+      el('feedbackTitle').textContent = risk ? `本轮 ${roundScore} 分 · 发现安全边界问题` : `本轮 ${roundScore} 分 · ${exact >= 4 ? '协同调度稳定' : '已完成策略复盘'}`;
+      el('feedbackText').textContent = `${round.feedback} ${round.lessons}`;
+      el('score').textContent = state.score;
+      el('roundHint').textContent = `本轮命中 ${exact} / 5 项关键策略`;
+      el('runButton').textContent = state.round === rounds.length - 1 ? '完成值守 · 查看复盘　✦' : '进入下一场景　→';
+      state.locked = true;
+      state.history.push({ title: round.title, score: roundScore, choices: { ...state.choices }, risk, exact });
+
+      const c = state.choices;
+      state.metrics.net = cap(state.metrics.net + (c.orc === 'steady' ? 8 : c.orc === 'boost' ? 13 : -2) - (c.reinjection === 'push' ? 14 : 0));
+      state.metrics.water = cap(state.metrics.water + (c.water === 'reserve' ? 13 : c.water === 'clean' ? 8 : c.water === 'cooling' ? 6 : -22));
+      state.metrics.safe = cap(state.metrics.safe + (c.reinjection === 'stable' ? 8 : c.reinjection === 'slow' ? 13 : -32) + (c.water === 'mix' ? -24 : 0) + (c.drainage === 'throttle' ? -18 : 0));
+      state.metrics.heat = cap(state.metrics.heat + (c.heat === 'cascade' ? 15 : c.heat === 'hold' ? 5 : -12));
+      updateMetrics();
+      if (state.round === rounds.length - 1) {
+        state.finished = true;
+      }
+    }
+
+    function showFinal() {
+      const average = state.score / rounds.length;
+      const grade = average >= 86 ? '云合协同专家' : average >= 70 ? '稳健的系统值守员' : average >= 48 ? '正在成长的调度员' : '先守边界，再优化输出';
+      el('finalScore').textContent = state.score;
+      el('finalLine').textContent = `${grade}。${average >= 70 ? '你把热、电、水和储层约束放在同一张调度图里。' : '再留意水质、回灌压力与安全旁通之间的关系。'}`;
+      el('finalList').innerHTML = state.history.map((record, index) => `<span><i>${String(index + 1).padStart(2, '0')}</i><b>${record.title}</b> · ${record.score} 分${record.risk ? ' · 安全边界待改进' : ''}</span>`).join('');
+      el('finalCard').classList.add('open');
+    }
+
+    el('choiceList').addEventListener('click', event => {
+      const button = event.target.closest('button[data-group]');
+      if (!button || state.locked) return;
+      state.choices[button.dataset.group] = button.dataset.choice;
+      renderChoiceGroups();
+    });
+
+    el('runButton').addEventListener('click', () => {
+      if (!state.locked) { evaluateRound(); return; }
+      if (state.finished) { showFinal(); return; }
+      state.round += 1;
+      setRoundContent();
+      document.querySelector('.control-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    function restart() {
+      state.round = 0; state.score = 0; state.locked = false; state.finished = false; state.history = [];
+      state.metrics = { net: 68, water: 54, safe: 78, heat: 46 };
+      el('score').textContent = '0';
+      el('finalCard').classList.remove('open');
+      updateMetrics();
+      setRoundContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    el('resetButton').addEventListener('click', restart);
+    el('againButton').addEventListener('click', restart);
+    el('closeFinal').addEventListener('click', () => el('finalCard').classList.remove('open'));
+    el('finalCard').addEventListener('click', event => { if (event.target === el('finalCard')) el('finalCard').classList.remove('open'); });
+    el('motionToggle').addEventListener('click', event => {
+      const reduced = document.body.classList.toggle('reduced-motion');
+      event.currentTarget.textContent = reduced ? '动效：关' : '动效：开';
+      event.currentTarget.setAttribute('aria-pressed', String(reduced));
+    });
+
+    setRoundContent();
+    updateMetrics();
   </script>
 </body>
 </html>
