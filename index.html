@@ -151,7 +151,7 @@
     .final-buttons button { flex: 1; padding: 11px; border-radius: 12px; cursor: pointer; font-size: 11px; font-weight: 800; }
     .again { color: #05241c; background: var(--mint); border: 0; }
     .close-final { border: 1px solid #ffffff24; background: #ffffff08; }
-    .leaderboard-card { margin-top: 14px; padding: 20px; }
+    .leaderboard-card { width: min(100%, 920px); margin: 22px auto; padding: 20px; }
     .leaderboard-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
     .leaderboard-heading h2 { margin: 0; font-size: 19px; }
     .leaderboard-heading p { margin: 5px 0 0; color: #8fa99b; font-size: 11px; }
@@ -355,6 +355,17 @@
       </aside>
     </section>
 
+    <section class="glass leaderboard-card" id="leaderboard" aria-labelledby="leaderboardTitle">
+      <div class="leaderboard-heading">
+        <div><h2 id="leaderboardTitle">云合值守排行榜</h2><p>展示全站前五名；未进入前五的玩家只会看到自己的名次与分数。</p></div>
+        <span class="leaderboard-status" id="leaderboardStatus" aria-live="polite">正在读取排行榜…</span>
+      </div>
+      <div class="leaderboard-table-wrap">
+        <table class="leaderboard-table"><thead><tr><th>排名</th><th>调度员</th><th>总分</th></tr></thead><tbody id="leaderboardRows"><tr><td class="leaderboard-empty" colspan="3">排行榜加载中…</td></tr></tbody></table>
+      </div>
+      <div class="leaderboard-self" id="leaderboardSelf" aria-live="polite"></div>
+    </section>
+
     <section class="below">
       <article class="glass info-card">
         <h2>看懂云合的多场耦合</h2>
@@ -379,16 +390,6 @@
           <p class="disclaimer">本游戏采用方案中的概念流程与风险边界作情景推演，不代表施工图、控制系统或现场实测数据。</p>
         </details>
       </article>
-    </section>
-    <section class="glass leaderboard-card" id="leaderboard" aria-labelledby="leaderboardTitle">
-      <div class="leaderboard-heading">
-        <div><h2 id="leaderboardTitle">云合值守排行榜</h2><p>展示全站前五名；未进入前五的玩家只会看到自己的名次与分数。</p></div>
-        <span class="leaderboard-status" id="leaderboardStatus" aria-live="polite">正在读取排行榜…</span>
-      </div>
-      <div class="leaderboard-table-wrap">
-        <table class="leaderboard-table"><thead><tr><th>排名</th><th>调度员</th><th>总分</th></tr></thead><tbody id="leaderboardRows"><tr><td class="leaderboard-empty" colspan="3">排行榜加载中…</td></tr></tbody></table>
-      </div>
-      <div class="leaderboard-self" id="leaderboardSelf" aria-live="polite"></div>
     </section>
     <footer class="footer"><span>云合 RAIN–HEAT · 地热主供给 × 光伏辅助 × 雨水调蓄 × 尾水梯级利用</span><span>适合课堂、科普与项目展示的概念调度游戏</span></footer>
   </main>
@@ -498,16 +499,24 @@
       return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
     }
 
+    function leaderboardPosition(row) {
+      return Number(row.position ?? row.player_rank);
+    }
+
+    function isLeaderboardSelf(row) {
+      return row.is_self === true || row.is_self === 'true';
+    }
+
     function renderLeaderboard(rows, playerId = '') {
-      const topFive = rows.filter(row => Number(row.position) <= 5).slice(0, 5);
+      const topFive = rows.filter(row => leaderboardPosition(row) <= 5).slice(0, 5);
       el('leaderboardRows').innerHTML = topFive.length
-        ? topFive.map(row => `<tr><td class="leaderboard-rank">${Number(row.position)}</td><td>${escapeHtml(row.nickname)}</td><td>${Number(row.score)} 分</td></tr>`).join('')
+        ? topFive.map(row => `<tr><td class="leaderboard-rank">${leaderboardPosition(row)}</td><td>${escapeHtml(row.nickname)}</td><td>${Number(row.score)} 分</td></tr>`).join('')
         : '<tr><td class="leaderboard-empty" colspan="3">还没有已提交的成绩，完成一局来登榜。</td></tr>';
 
-      const personal = rows.find(row => row.is_self === true || row.is_self === 'true');
+      const personal = rows.find(isLeaderboardSelf);
       const personalBox = el('leaderboardSelf');
       if (personal && playerId) {
-        personalBox.innerHTML = `你的成绩：第 <strong>${Number(personal.position)} 名</strong>，<strong>${Number(personal.score)} 分</strong>`;
+        personalBox.innerHTML = `你的成绩：第 <strong>${leaderboardPosition(personal)} 名</strong>，<strong>${Number(personal.score)} 分</strong>`;
         personalBox.classList.add('visible');
       } else if (playerId) {
         personalBox.textContent = '完成一局并提交成绩后，这里会显示你的名次和分数。';
@@ -685,7 +694,11 @@
         });
         renderLeaderboard(rows, playerId);
         setLeaderboardStatus('全站排行榜 · 已更新');
-        el('scoreSubmitNote').textContent = '成绩已记录；再次游玩会保留你的最佳分数。';
+        const personal = rows.find(isLeaderboardSelf);
+        const position = personal ? leaderboardPosition(personal) : NaN;
+        el('scoreSubmitNote').textContent = Number.isFinite(position)
+          ? `提交成功：第 ${position} 名，${Number(personal.score)} 分。再次游玩会保留你的最佳分数。`
+          : '成绩已提交，但暂时无法读取你的名次；请刷新排行榜。';
       } catch (error) {
         console.error('排行榜成绩提交失败：', error);
         el('scoreSubmitNote').textContent = error.status
