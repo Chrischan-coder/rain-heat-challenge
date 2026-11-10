@@ -196,7 +196,7 @@
       <div>
         <span class="eyebrow">RAIN · HEAT · POWER · WATER</span>
         <h1>做今天的<span>云合调度员</span></h1>
-        <p class="intro">让地热 ORC 稳定发电，让光伏支撑辅机，让雨水在独立回路里被收集和调蓄，再把尾水余热送到合适的梯级负荷。三轮值守，看看你能否让能量、水和储层一起保持平衡。</p>
+        <p class="intro">让地热 ORC 稳定发电，让光伏与储能协同支撑辅机，让雨水在独立回路里被收集和调蓄，再把尾水余热送到合适的梯级负荷。三轮值守，看看你能否让能量、水和储层一起保持平衡。</p>
       </div>
     </section>
 
@@ -213,8 +213,8 @@
         <div class="map-wrap">
           <div class="map-glow"></div>
           <svg class="map-svg" viewBox="0 0 1000 540" role="img" aria-labelledby="mapTitle mapDesc">
-            <title id="mapTitle">云合地热、光伏、雨水和尾水梯级利用耦合示意</title>
-            <desc id="mapDesc">地热流体经换热器为封闭的 ORC 工质循环供热，尾水经过梯级热利用和处理后回灌；光伏为辅助负荷供电，雨水经过弃流、过滤和储存后分质使用，微水力设有全通径旁通。</desc>
+            <title id="mapTitle">云合地热、光伏、储能、雨水和尾水梯级利用耦合示意</title>
+            <desc id="mapDesc">地热流体经换热器为封闭的 ORC 工质循环供热；光伏与储能经能源管理系统协同供给地热辅机、雨水泵组和 PLC 监测负荷，并通过 BMS 预警和分级限载防止过载。</desc>
             <defs>
               <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#164942"/><stop offset=".58" stop-color="#12383c"/><stop offset="1" stop-color="#0b252b"/></linearGradient>
               <linearGradient id="ground" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#245a45"/><stop offset="1" stop-color="#102e2d"/></linearGradient>
@@ -270,6 +270,19 @@
             <path d="M335 190C405 171 414 197 467 212" class="flow flow-power" marker-end="url(#arrowPower)"/>
             <path d="M362 194C393 230 394 405 440 429" class="flow flow-power" marker-end="url(#arrowPower)"/>
             <text x="378" y="182" class="map-sub">光伏辅助电</text>
+            <!-- Central battery and EMS link three critical load systems. -->
+            <path d="M421 346C400 346 388 346 370 346" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <path d="M514 360C545 360 554 331 578 308" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <path d="M465 390V411" class="flow flow-power" marker-end="url(#arrowPower)"/>
+            <rect x="420" y="337" width="96" height="53" rx="11" fill="#183c3a" stroke="#f5c66b" stroke-width="2"/>
+            <rect x="512" y="353" width="5" height="19" rx="2" fill="#f5c66b"/>
+            <path d="M435 350h8v-5h10v5h8v23h-26zM441 362h6M452 362h5" fill="none" stroke="#a5efc1" stroke-width="2" stroke-linecap="round"/>
+            <text x="465" y="352" class="map-micro" text-anchor="middle">储能电池 · EMS</text>
+            <text x="465" y="368" class="map-micro" text-anchor="middle">BMS 过载预警</text>
+            <text x="465" y="382" class="map-micro" text-anchor="middle">分级限载</text>
+            <text x="382" y="335" class="map-micro">雨水泵组</text>
+            <text x="538" y="350" class="map-micro">地热辅机</text>
+            <text x="475" y="405" class="map-micro">监测控制</text>
             <rect x="414" y="411" width="100" height="53" rx="14" fill="#173c3c" stroke="#f5c66b" stroke-opacity=".8"/>
             <circle cx="434" cy="437" r="5" fill="#f5c66b"/><circle cx="452" cy="437" r="5" fill="#57d59b"/><circle cx="470" cy="437" r="5" fill="#62d6e2"/>
             <text x="429" y="426" class="map-micro">PLC / SCADA</text>
@@ -332,7 +345,7 @@
         <div class="map-foot" aria-label="系统图例">
           <span class="legend-item"><i class="legend-line" style="background:var(--heat)"></i>地热 / 余热</span>
           <span class="legend-item"><i class="legend-line" style="background:var(--water)"></i>雨水独立回路</span>
-          <span class="legend-item"><i class="legend-line" style="background:var(--gold)"></i>辅助电 / 控制</span>
+          <span class="legend-item"><i class="legend-line" style="background:var(--gold)"></i>光伏 / 储能 / 辅助电</span>
           <span class="legend-item"><i class="legend-line" style="background:var(--green)"></i>处理后回灌</span>
           <span class="map-note">概念运行图 · 非施工设计图</span>
         </div>
@@ -372,6 +385,7 @@
         <div class="coupling-list">
           <div class="coupling"><b>热 · 电</b><span>地热经换热器驱动封闭 ORC，承担连续主发电。</span></div>
           <div class="coupling"><b>光 · 控</b><span>光伏优先带泵、传感器和控制器等辅助负荷。</span></div>
+          <div class="coupling"><b>储 · 电</b><span>储能电池经 EMS 支持地热辅机、雨水泵组与监测控制；BMS 预警并分级限载。</span></div>
           <div class="coupling"><b>雨 · 水</b><span>弃流、过滤、储存后分质使用，不默认进入回灌。</span></div>
           <div class="coupling"><b>余 · 热</b><span>ORC 尾水按温度匹配烘干、温室或热泵负荷。</span></div>
           <div class="coupling"><b>水 · 储</b><span>回灌看水质、压差和储层响应，需要独立监测。</span></div>
@@ -391,7 +405,7 @@
         </details>
       </article>
     </section>
-    <footer class="footer"><span>云合 RAIN–HEAT · 地热主供给 × 光伏辅助 × 雨水调蓄 × 尾水梯级利用</span><span>适合课堂、科普与项目展示的概念调度游戏</span></footer>
+    <footer class="footer"><span>云合 RAIN–HEAT · 地热主供给 × 光伏储能 × 雨水调蓄 × 尾水梯级利用</span><span>储能保护阈值与功率配置需按设备和负载校核</span></footer>
   </main>
 
   <section class="final-card" id="finalCard" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
