@@ -357,7 +357,7 @@
 
     <section class="glass leaderboard-card" id="leaderboard" aria-labelledby="leaderboardTitle">
       <div class="leaderboard-heading">
-        <div><h2 id="leaderboardTitle">云合值守排行榜</h2><p>展示全站前五名；未进入前五的玩家只会看到自己的名次与分数。</p></div>
+        <div><h2 id="leaderboardTitle">云合值守排行榜</h2><p>相同昵称合并为一位玩家，只展示最高分；前五名公开显示，其余玩家可查看自己的名次与分数。</p></div>
         <span class="leaderboard-status" id="leaderboardStatus" aria-live="polite">正在读取排行榜…</span>
       </div>
       <div class="leaderboard-table-wrap">
@@ -395,7 +395,7 @@
   </main>
 
   <section class="final-card" id="finalCard" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
-    <div class="final-box"><div class="final-eyebrow">SHIFT COMPLETE · DISPATCH REVIEW</div><h2 id="finalTitle">云合值守完成</h2><div class="final-score"><span id="finalScore">0</span><small> / 300</small></div><p id="finalLine"></p><div class="final-list" id="finalList"></div><form class="score-submit" id="scoreSubmitForm"><label for="playerName">给本次成绩起个昵称（2–16 字）</label><div class="score-submit-row"><input id="playerName" name="playerName" type="text" minlength="2" maxlength="16" autocomplete="nickname" placeholder="例如：雨热调度员" required><button id="scoreSubmitButton" type="submit">提交并查看排名</button></div><p class="score-submit-note" id="scoreSubmitNote">仅昵称和总分进入排行榜；前五名公开显示昵称。</p></form><div class="final-buttons"><button class="again" id="againButton" type="button">再跑一班</button><button class="close-final" id="closeFinal" type="button">查看系统图</button></div></div>
+    <div class="final-box"><div class="final-eyebrow">SHIFT COMPLETE · DISPATCH REVIEW</div><h2 id="finalTitle">云合值守完成</h2><div class="final-score"><span id="finalScore">0</span><small> / 300</small></div><p id="finalLine"></p><div class="final-list" id="finalList"></div><form class="score-submit" id="scoreSubmitForm"><label for="playerName">给本次成绩起个昵称（2–16 字）</label><div class="score-submit-row"><input id="playerName" name="playerName" type="text" minlength="2" maxlength="16" autocomplete="nickname" placeholder="例如：雨热调度员" required><button id="scoreSubmitButton" type="submit">提交并查看排名</button></div><p class="score-submit-note" id="scoreSubmitNote">相同昵称视为同一榜单用户，跨设备请使用同一昵称；榜单保留该昵称最高分。</p></form><div class="final-buttons"><button class="again" id="againButton" type="button">再跑一班</button><button class="close-final" id="closeFinal" type="button">查看系统图</button></div></div>
   </section>
 
   <script src="./leaderboard-config.js"></script>

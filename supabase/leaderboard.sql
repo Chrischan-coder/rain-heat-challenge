@@ -23,25 +23,35 @@ language sql
 security definer
 set search_path = ''
 as $function$
-  with ranked as (
+  with players as (
     select
-      board.player_id,
-      board.nickname,
-      board.score,
-      row_number() over (
-        order by board.score desc, board.created_at asc, board.player_id asc
-      ) as player_rank
+      (array_agg(board.player_id order by board.score desc, board.created_at asc, board.player_id asc))[1] as player_id,
+      (array_agg(board.nickname order by board.score desc, board.created_at asc, board.player_id asc))[1] as nickname,
+      max(board.score) as score,
+      min(board.created_at) as created_at,
+      coalesce(bool_or(board.player_id = p_player_id), false) as is_self
     from public.rainheat_leaderboard as board
+    group by lower(btrim(board.nickname))
+  ), ranked as (
+    select
+      players.player_id,
+      players.nickname,
+      players.score,
+      players.is_self,
+      row_number() over (
+        order by players.score desc, players.created_at asc, players.player_id asc
+      ) as player_rank
+    from players
   )
   select
     ranked.player_id,
     ranked.nickname,
     ranked.score,
     ranked.player_rank,
-    ranked.player_id = p_player_id as is_self
+    ranked.is_self
   from ranked
   where ranked.player_rank <= 5
-     or (p_player_id is not null and ranked.player_id = p_player_id)
+     or (p_player_id is not null and ranked.is_self)
   order by ranked.player_rank;
 $function$;
 
