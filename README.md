@@ -9,6 +9,7 @@ GitHub Pages：<https://chrischan-coder.github.io/rain-heat-challenge/>
 ## 项目内容
 
 - `index.html`：云合调度员小游戏，包含系统流程图、策略选择、计分和复盘。
+- 全站排行榜：完成三轮后提交昵称和总分；所有访客看到前五名，其他玩家只看到自己的排名和分数。
 - `carbon-footprint.html`：日常碳足迹估算网页。
 - `app.js`、`app.json`、`app.wxss`、`pages/index/`：微信小程序页面代码。
 

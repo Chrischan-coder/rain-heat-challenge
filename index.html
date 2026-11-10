@@ -136,7 +136,7 @@
     summary::after { content: "+"; color: var(--mint); font-size: 17px; line-height: 1; }
     details[open] summary::after { content: "−"; }
     .disclaimer { color: #769184; font-size: 9px; margin: 12px 0 0; }
-    .final-card { display: none; position: fixed; z-index: 10; inset: 0; padding: 20px; background: #031113cf; backdrop-filter: blur(12px); place-items: center; }
+    .final-card { display: none; position: fixed; z-index: 10; inset: 0; overflow-y: auto; padding: 20px; background: #031113cf; backdrop-filter: blur(12px); place-items: center; }
     .final-card.open { display: grid; }
     .final-box { width: min(520px, 100%); border-radius: 25px; border: 1px solid #a5efc133; background: linear-gradient(145deg, #123638, #081e22); box-shadow: 0 30px 120px #0009; padding: 28px; animation: fade-in .35s ease both; }
     .final-eyebrow { color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: .18em; }
@@ -151,10 +151,32 @@
     .final-buttons button { flex: 1; padding: 11px; border-radius: 12px; cursor: pointer; font-size: 11px; font-weight: 800; }
     .again { color: #05241c; background: var(--mint); border: 0; }
     .close-final { border: 1px solid #ffffff24; background: #ffffff08; }
+    .leaderboard-card { margin-top: 14px; padding: 20px; }
+    .leaderboard-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .leaderboard-heading h2 { margin: 0; font-size: 19px; }
+    .leaderboard-heading p { margin: 5px 0 0; color: #8fa99b; font-size: 11px; }
+    .leaderboard-status { color: var(--gold); font-size: 10px; white-space: nowrap; }
+    .leaderboard-table-wrap { overflow-x: auto; }
+    .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .leaderboard-table th { padding: 9px 10px; color: #789286; text-align: left; font-size: 10px; font-weight: 650; }
+    .leaderboard-table td { padding: 10px; border-top: 1px solid #ffffff0c; color: #d8eadc; }
+    .leaderboard-table th:last-child, .leaderboard-table td:last-child { text-align: right; }
+    .leaderboard-rank { color: var(--gold) !important; width: 56px; font-weight: 800; }
+    .leaderboard-empty { color: #8fa99b !important; text-align: center !important; }
+    .leaderboard-self { display: none; margin-top: 13px; padding: 13px 15px; border: 1px solid #a5efc126; border-radius: 13px; background: #a5efc10a; color: #c9e4d1; font-size: 12px; }
+    .leaderboard-self.visible { display: block; }
+    .leaderboard-self strong { color: var(--mint); }
+    .score-submit { margin-top: 14px; padding-top: 13px; border-top: 1px solid #ffffff10; }
+    .score-submit label { display: block; margin-bottom: 7px; color: #a9c0b1; font-size: 11px; }
+    .score-submit-row { display: flex; gap: 9px; }
+    .score-submit input { min-width: 0; flex: 1; padding: 10px 12px; border: 1px solid #ffffff20; border-radius: 11px; background: #06191c; color: var(--text); font: inherit; font-size: 12px; }
+    .score-submit button { padding: 10px 14px; border: 0; border-radius: 11px; background: var(--mint); color: #06251d; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .score-submit button:disabled { cursor: wait; opacity: .62; }
+    .score-submit-note { margin: 8px 0 0; color: #789286; font-size: 10px; }
     .footer { display: flex; justify-content: space-between; gap: 15px; color: #668277; font-size: 9px; padding: 20px 4px 0; }
     .reduced-motion *, .reduced-motion *::before, .reduced-motion *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
     @media (max-width: 980px) { .game-layout { grid-template-columns: 1fr; } .map-card { min-height: auto; } .control-card { min-height: 0; } .choice-list { grid-template-columns: 1fr 1fr; } .progress-line { margin-top: 15px; } }
-    @media (max-width: 680px) { .page { padding: 15px 12px 30px; } .topbar { margin-bottom: 23px; } .top-actions .link-pill { display: none; } .hero { display: block; margin-bottom: 17px; } h1 { font-size: 37px; } .intro { font-size: 12px; } .audience { text-align: left; margin-top: 10px; font-size: 10px; } .map-head { padding: 16px 15px 0; } .stage-title { font-size: 17px; } .stage-copy { font-size: 10px; } .round-count { font-size: 9px; padding: 6px 8px; } .map-wrap { margin: 10px -3px 0; overflow: hidden; } .map-svg { min-height: unset; } .map-foot { padding: 0 14px 13px; font-size: 8px; gap: 8px 11px; } .map-note { width: 100%; margin-left: 0; } .telemetry { grid-template-columns: 1fr 1fr; padding: 0 12px 12px; } .control-card { padding: 14px; } .choice-list { grid-template-columns: 1fr; gap: 8px; } .choice-group { padding: 10px; } .below { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; } .info-card { padding: 15px; } .coupling-list { grid-template-columns: 1fr 1fr; } .footer { display: block; line-height: 1.8; } }
+    @media (max-width: 680px) { .page { padding: 15px 12px 30px; } .topbar { margin-bottom: 23px; } .top-actions .link-pill { display: none; } .hero { display: block; margin-bottom: 17px; } h1 { font-size: 37px; } .intro { font-size: 12px; } .audience { text-align: left; margin-top: 10px; font-size: 10px; } .map-head { padding: 16px 15px 0; } .stage-title { font-size: 17px; } .stage-copy { font-size: 10px; } .round-count { font-size: 9px; padding: 6px 8px; } .map-wrap { margin: 10px -3px 0; overflow: hidden; } .map-svg { min-height: unset; } .map-foot { padding: 0 14px 13px; font-size: 8px; gap: 8px 11px; } .map-note { width: 100%; margin-left: 0; } .telemetry { grid-template-columns: 1fr 1fr; padding: 0 12px 12px; } .control-card { padding: 14px; } .choice-list { grid-template-columns: 1fr; gap: 8px; } .choice-group { padding: 10px; } .below { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; } .info-card { padding: 15px; } .coupling-list { grid-template-columns: 1fr 1fr; } .leaderboard-card { padding: 15px; } .leaderboard-heading { display: block; } .leaderboard-status { display: block; margin-top: 8px; } .leaderboard-table th, .leaderboard-table td { padding: 9px 7px; } .score-submit-row { flex-direction: column; } .footer { display: block; line-height: 1.8; } }
     @media (max-width: 390px) { .brand { gap: 8px; font-size: 13px; } .brand-mark { width: 37px; height: 37px; border-radius: 13px; } .icon-pill { padding: 8px 10px; } .map-label { font-size: 16px; } .map-sub { font-size: 12px; } .map-micro { font-size: 9px; } }
   </style>
 </head>
@@ -358,13 +380,24 @@
         </details>
       </article>
     </section>
+    <section class="glass leaderboard-card" id="leaderboard" aria-labelledby="leaderboardTitle">
+      <div class="leaderboard-heading">
+        <div><h2 id="leaderboardTitle">云合值守排行榜</h2><p>展示全站前五名；未进入前五的玩家只会看到自己的名次与分数。</p></div>
+        <span class="leaderboard-status" id="leaderboardStatus" aria-live="polite">正在读取排行榜…</span>
+      </div>
+      <div class="leaderboard-table-wrap">
+        <table class="leaderboard-table"><thead><tr><th>排名</th><th>调度员</th><th>总分</th></tr></thead><tbody id="leaderboardRows"><tr><td class="leaderboard-empty" colspan="3">排行榜加载中…</td></tr></tbody></table>
+      </div>
+      <div class="leaderboard-self" id="leaderboardSelf" aria-live="polite"></div>
+    </section>
     <footer class="footer"><span>云合 RAIN–HEAT · 地热主供给 × 光伏辅助 × 雨水调蓄 × 尾水梯级利用</span><span>适合课堂、科普与项目展示的概念调度游戏</span></footer>
   </main>
 
   <section class="final-card" id="finalCard" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
-    <div class="final-box"><div class="final-eyebrow">SHIFT COMPLETE · DISPATCH REVIEW</div><h2 id="finalTitle">云合值守完成</h2><div class="final-score"><span id="finalScore">0</span><small> / 300</small></div><p id="finalLine"></p><div class="final-list" id="finalList"></div><div class="final-buttons"><button class="again" id="againButton" type="button">再跑一班</button><button class="close-final" id="closeFinal" type="button">查看系统图</button></div></div>
+    <div class="final-box"><div class="final-eyebrow">SHIFT COMPLETE · DISPATCH REVIEW</div><h2 id="finalTitle">云合值守完成</h2><div class="final-score"><span id="finalScore">0</span><small> / 300</small></div><p id="finalLine"></p><div class="final-list" id="finalList"></div><form class="score-submit" id="scoreSubmitForm"><label for="playerName">给本次成绩起个昵称（2–16 字）</label><div class="score-submit-row"><input id="playerName" name="playerName" type="text" minlength="2" maxlength="16" autocomplete="nickname" placeholder="例如：雨热调度员" required><button id="scoreSubmitButton" type="submit">提交并查看排名</button></div><p class="score-submit-note" id="scoreSubmitNote">仅昵称和总分进入排行榜；前五名公开显示昵称。</p></form><div class="final-buttons"><button class="again" id="againButton" type="button">再跑一班</button><button class="close-final" id="closeFinal" type="button">查看系统图</button></div></div>
   </section>
 
+  <script src="./leaderboard-config.js"></script>
   <script>
     const optionSets = {
       orc: [
@@ -437,8 +470,84 @@
     ];
 
     const state = { round: 0, score: 0, locked: false, finished: false, choices: {}, history: [], metrics: { net: 68, water: 54, safe: 78, heat: 46 } };
+    const leaderboardConfig = window.RAINHEAT_LEADERBOARD_CONFIG || {};
+    const leaderboardPlayerKey = 'rainheat.leaderboard.playerId';
+    const leaderboardNameKey = 'rainheat.leaderboard.nickname';
     const el = id => document.getElementById(id);
     const cap = n => Math.max(0, Math.min(100, Math.round(n)));
+
+    function leaderboardReady() {
+      return /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(leaderboardConfig.url || '')
+        && /^sb_publishable_[a-zA-Z0-9_-]+$/.test(leaderboardConfig.publishableKey || '');
+    }
+
+    function getLeaderboardPlayerId() {
+      let playerId = localStorage.getItem(leaderboardPlayerKey);
+      if (!playerId) {
+        playerId = crypto.randomUUID ? crypto.randomUUID() : `player-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+        localStorage.setItem(leaderboardPlayerKey, playerId);
+      }
+      return playerId;
+    }
+
+    function setLeaderboardStatus(message) {
+      el('leaderboardStatus').textContent = message;
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+    }
+
+    function renderLeaderboard(rows, playerId = '') {
+      const topFive = rows.filter(row => Number(row.position) <= 5).slice(0, 5);
+      el('leaderboardRows').innerHTML = topFive.length
+        ? topFive.map(row => `<tr><td class="leaderboard-rank">${Number(row.position)}</td><td>${escapeHtml(row.nickname)}</td><td>${Number(row.score)} 分</td></tr>`).join('')
+        : '<tr><td class="leaderboard-empty" colspan="3">还没有已提交的成绩，完成一局来登榜。</td></tr>';
+
+      const personal = rows.find(row => row.is_self === true || row.is_self === 'true');
+      const personalBox = el('leaderboardSelf');
+      if (personal && playerId) {
+        personalBox.innerHTML = `你的成绩：第 <strong>${Number(personal.position)} 名</strong>，<strong>${Number(personal.score)} 分</strong>`;
+        personalBox.classList.add('visible');
+      } else if (playerId) {
+        personalBox.textContent = '完成一局并提交成绩后，这里会显示你的名次和分数。';
+        personalBox.classList.add('visible');
+      } else {
+        personalBox.textContent = '';
+        personalBox.classList.remove('visible');
+      }
+    }
+
+    async function leaderboardRpc(functionName, payload) {
+      const baseUrl = leaderboardConfig.url.replace(/\/$/, '');
+      const response = await fetch(`${baseUrl}/rest/v1/rpc/${functionName}`, {
+        method: 'POST',
+        headers: {
+          apikey: leaderboardConfig.publishableKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error(`排行榜服务返回 ${response.status}`);
+      return response.json();
+    }
+
+    async function refreshLeaderboard() {
+      const playerId = localStorage.getItem(leaderboardPlayerKey) || '';
+      if (!leaderboardReady()) {
+        setLeaderboardStatus('在线排行榜待连接');
+        el('leaderboardRows').innerHTML = '<tr><td class="leaderboard-empty" colspan="3">在线排行榜正在接入，暂不显示跨设备排名。</td></tr>';
+        return;
+      }
+      try {
+        const rows = await leaderboardRpc('get_rainheat_leaderboard', { p_player_id: playerId || null });
+        renderLeaderboard(rows, playerId);
+        setLeaderboardStatus('全站排行榜');
+      } catch (error) {
+        setLeaderboardStatus('排行榜暂时无法连接');
+        el('leaderboardRows').innerHTML = '<tr><td class="leaderboard-empty" colspan="3">加载失败，请稍后再试。</td></tr>';
+      }
+    }
 
     function currentRound() { return rounds[state.round]; }
 
@@ -540,8 +649,41 @@
       el('finalScore').textContent = state.score;
       el('finalLine').textContent = `${grade}。${average >= 70 ? '你把热、电、水和储层约束放在同一张调度图里。' : '再留意水质、回灌压力与安全旁通之间的关系。'}`;
       el('finalList').innerHTML = state.history.map((record, index) => `<span><i>${String(index + 1).padStart(2, '0')}</i><b>${record.title}</b> · ${record.score} 分${record.risk ? ' · 安全边界待改进' : ''}</span>`).join('');
+      el('playerName').value = localStorage.getItem(leaderboardNameKey) || '';
+      el('scoreSubmitButton').disabled = !leaderboardReady();
+      el('scoreSubmitNote').textContent = leaderboardReady()
+        ? '仅昵称和总分进入排行榜；前五名公开显示昵称。'
+        : '在线排行榜尚未接通，完成数据库设置后即可提交成绩。';
       el('finalCard').classList.add('open');
     }
+
+    el('scoreSubmitForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!state.finished || !leaderboardReady()) return;
+      const nickname = el('playerName').value.trim();
+      if (nickname.length < 2 || nickname.length > 16) return;
+      const button = el('scoreSubmitButton');
+      button.disabled = true;
+      button.textContent = '提交中…';
+      el('scoreSubmitNote').textContent = '正在提交成绩…';
+      try {
+        const playerId = getLeaderboardPlayerId();
+        localStorage.setItem(leaderboardNameKey, nickname);
+        const rows = await leaderboardRpc('submit_rainheat_score', {
+          p_player_id: playerId,
+          p_nickname: nickname,
+          p_score: state.score
+        });
+        renderLeaderboard(rows, playerId);
+        setLeaderboardStatus('全站排行榜 · 已更新');
+        el('scoreSubmitNote').textContent = '成绩已记录；再次游玩会保留你的最佳分数。';
+      } catch (error) {
+        el('scoreSubmitNote').textContent = '提交失败，请检查网络后重试。';
+      } finally {
+        button.disabled = false;
+        button.textContent = '提交并查看排名';
+      }
+    });
 
     el('choiceList').addEventListener('click', event => {
       const button = event.target.closest('button[data-group]');
@@ -580,6 +722,7 @@
 
     setRoundContent();
     updateMetrics();
+    refreshLeaderboard();
   </script>
 </body>
 </html>
