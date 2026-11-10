@@ -528,7 +528,16 @@
         },
         body: JSON.stringify(payload)
       });
-      if (!response.ok) throw new Error(`排行榜服务返回 ${response.status}`);
+      if (!response.ok) {
+        let detail = '';
+        try {
+          const body = await response.json();
+          detail = body.message || body.details || body.hint || '';
+        } catch {}
+        const error = new Error(`排行榜服务返回 ${response.status}${detail ? `：${detail}` : ''}`);
+        error.status = response.status;
+        throw error;
+      }
       return response.json();
     }
 
@@ -678,7 +687,10 @@
         setLeaderboardStatus('全站排行榜 · 已更新');
         el('scoreSubmitNote').textContent = '成绩已记录；再次游玩会保留你的最佳分数。';
       } catch (error) {
-        el('scoreSubmitNote').textContent = '提交失败，请检查网络后重试。';
+        console.error('排行榜成绩提交失败：', error);
+        el('scoreSubmitNote').textContent = error.status
+          ? `提交失败（排行榜服务错误 ${error.status}），请稍后重试。`
+          : '网络连接失败，请检查网络后重试。';
       } finally {
         button.disabled = false;
         button.textContent = '提交并查看排名';

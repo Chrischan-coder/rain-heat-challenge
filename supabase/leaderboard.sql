@@ -74,7 +74,9 @@ begin
 
   insert into public.rainheat_leaderboard as existing (player_id, nickname, score)
   values (p_player_id, btrim(p_nickname), p_score)
-  on conflict (player_id) do update
+  -- The function's RETURNS TABLE also declares an output variable named
+  -- player_id, so use the primary-key constraint name to avoid ambiguity.
+  on conflict on constraint rainheat_leaderboard_pkey do update
   set nickname = excluded.nickname,
       score = greatest(existing.score, excluded.score),
       updated_at = now();
